@@ -26,6 +26,7 @@ while i < 9:
       i += 1
 
 #determine batting order for team currently fielding
+#currently derives this using PAs, but requested to be added to hud one day.
 teamName = "Home" if (hud.fielding_team == 1) else "Away"
 i = 0
 max_pa = 0
@@ -83,6 +84,7 @@ geckoCode = geckoCode + "\n00750C7F 00010001"
 geckoCode = geckoCode + "\n04750c48 00000009\n04750c4C 00000009"
 
 #make part of gecko code that puts character IDs into the roster
+#putting in order of positions as that makes other parts of the code simpler.
 aRosterIDs = 0x803C6726
 
 i = 0
@@ -166,14 +168,24 @@ geckoCode += "\n00892ad7 0000000" + str(hud.team_stars(1)) #home team stars
 #star chance active
 geckoCode += "\n00892ad8 0000000" + str(hud.star_chance())
 
-#TODO: pitcher stamina. Might make sense to do for all characters and not just the active pitcher.
+#pitcher stamina.
+aStamina = 0x803535d8
+gapPlayer = 0x803535f6 - 0x803535d8
+gapTeam = gapPlayer * 9
+for team in range(2):
+      if team == hud.batting_team():
+            startingBattingPosition = hud.batter_roster_location()
+      else:
+            startingBattingPosition = (max_pa_rosterLoc + 1) % 9
 
-
+      for battingPos in range(9):
+            stamina = hud.character_defensive_stats(team, (startingBattingPosition + battingPos) % 9)['Stamina']
+            print("\n02" + hex(aStamina + team * gapTeam + battingPos * gapPlayer)[4:] + " 0000000" + hex(stamina)[2:])
+            geckoCode += "\n02" + hex(aStamina + team * gapTeam + battingPos * gapPlayer)[4:] + " 0000000" + hex(stamina)[2:]
+            
 #Character positions - done by setting the roster in the order of the positions, so no extra code needed.
-#TODO: solve glitch where pitcher has wrong animation at start of inning.
 #it involves fixing the struct at 0x808929c8
 #try using the presumed batting order (so assume the player put the batting order correctly whens starting)
-
 aBattingPositionStruct = 0x808929c8
 gapCharacter = 0x8
 gapTeam = gapCharacter * 10
@@ -207,7 +219,7 @@ for teamNum, teamName in enumerate(teamNames):
                               characterPosition = position_map[position]
                               break                  
                   
-                  geckoCode += "\n04" + hex(aBattingPositionStruct + teamNum * gapTeam + positionNum * gapCharacter)[4:] + " 0000000" + str(positionNum - 1)
+                  #geckoCode += "\n04" + hex(aBattingPositionStruct + teamNum * gapTeam + positionNum * gapCharacter)[4:] + " 0000000" + str(positionNum - 1) not needed since always the same order.
                   geckoCode += "\n04" + hex(aBattingPositionStruct + teamNum * gapTeam + positionNum * gapCharacter + 0x4)[4:] + " 0000000" + str(characterPosition)
 
 
