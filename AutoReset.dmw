@@ -484,6 +484,61 @@
         {
             "groupEntries": [
                 {
+                    "address": "80892AB4",
+                    "baseIndex": 0,
+                    "label": "if statement loc",
+                    "length": 16,
+                    "typeIndex": 6,
+                    "unsigned": false
+                },
+                {
+                    "groupEntries": [
+                        {
+                            "address": "806C9420",
+                            "baseIndex": 1,
+                            "label": "R1 nop location",
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "806C9450",
+                            "baseIndex": 1,
+                            "label": "R2 nop location",
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "806C9480",
+                            "baseIndex": 1,
+                            "label": "R3 nop location",
+                            "typeIndex": 2,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "8088F04C",
+                            "baseIndex": 0,
+                            "label": "r1 rosterID",
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "8088F1A0",
+                            "baseIndex": 0,
+                            "label": "r2 rosterID",
+                            "typeIndex": 1,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "8088F2F4",
+                            "baseIndex": 0,
+                            "label": "r3 rosterID",
+                            "typeIndex": 1,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "runners"
+                },
+                {
                     "groupEntries": [
                         {
                             "address": "808928A4",
@@ -603,6 +658,326 @@
                     "length": 8,
                     "typeIndex": 6,
                     "unsigned": false
+                },
+                {
+                    "address": "80890AD8",
+                    "baseIndex": 0,
+                    "label": "pitcher roster ID",
+                    "typeIndex": 1,
+                    "unsigned": false
+                },
+                {
+                    "address": "80890ADA",
+                    "baseIndex": 1,
+                    "label": "pitcher char id",
+                    "typeIndex": 1,
+                    "unsigned": false
+                },
+                {
+                    "groupEntries": [
+                        {
+                            "address": "808929C8",
+                            "baseIndex": 0,
+                            "label": "a pitcher",
+                            "length": 8,
+                            "typeIndex": 6,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "808929D0",
+                            "baseIndex": 0,
+                            "label": "a1",
+                            "length": 8,
+                            "typeIndex": 6,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "808929D8",
+                            "baseIndex": 0,
+                            "label": "a2",
+                            "length": 8,
+                            "typeIndex": 6,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "808929E0",
+                            "baseIndex": 0,
+                            "label": "a3",
+                            "length": 8,
+                            "typeIndex": 6,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "808929E8",
+                            "baseIndex": 0,
+                            "label": "a4",
+                            "length": 8,
+                            "typeIndex": 6,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "808929F0",
+                            "baseIndex": 0,
+                            "label": "a5",
+                            "length": 8,
+                            "typeIndex": 6,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "808929F8",
+                            "baseIndex": 0,
+                            "label": "a6",
+                            "length": 8,
+                            "typeIndex": 6,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80892A00",
+                            "baseIndex": 0,
+                            "label": "a7",
+                            "length": 8,
+                            "typeIndex": 6,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80892A08",
+                            "baseIndex": 0,
+                            "label": "a8",
+                            "length": 8,
+                            "typeIndex": 6,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80892A10",
+                            "baseIndex": 0,
+                            "label": "a9",
+                            "length": 8,
+                            "typeIndex": 6,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80892A18",
+                            "baseIndex": 0,
+                            "label": "h pitcher",
+                            "length": 8,
+                            "typeIndex": 6,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80892A20",
+                            "baseIndex": 0,
+                            "label": "h1",
+                            "length": 8,
+                            "typeIndex": 6,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80892A28",
+                            "baseIndex": 0,
+                            "label": "h2",
+                            "length": 8,
+                            "typeIndex": 6,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80892A30",
+                            "baseIndex": 0,
+                            "label": "h3",
+                            "length": 8,
+                            "typeIndex": 6,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80892A38",
+                            "baseIndex": 0,
+                            "label": "h4",
+                            "length": 8,
+                            "typeIndex": 6,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80892A40",
+                            "baseIndex": 0,
+                            "label": "h5",
+                            "length": 8,
+                            "typeIndex": 6,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80892A48",
+                            "baseIndex": 0,
+                            "label": "h6",
+                            "length": 8,
+                            "typeIndex": 6,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80892A50",
+                            "baseIndex": 0,
+                            "label": "h7",
+                            "length": 8,
+                            "typeIndex": 6,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80892A58",
+                            "baseIndex": 0,
+                            "label": "h8",
+                            "length": 8,
+                            "typeIndex": 6,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80892A60",
+                            "baseIndex": 0,
+                            "label": "h9",
+                            "length": 8,
+                            "typeIndex": 6,
+                            "unsigned": false
+                        }
+                    ],
+                    "groupName": "Batting order and pos struct"
+                },
+                {
+                    "groupEntries": [
+                        {
+                            "groupEntries": [
+                                {
+                                    "address": "803535D8",
+                                    "baseIndex": 0,
+                                    "label": "1",
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "803535F6",
+                                    "baseIndex": 0,
+                                    "label": "2",
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "80353614",
+                                    "baseIndex": 0,
+                                    "label": "3",
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "80353632",
+                                    "baseIndex": 0,
+                                    "label": "4",
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "80353650",
+                                    "baseIndex": 0,
+                                    "label": "5",
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "8035366E",
+                                    "baseIndex": 0,
+                                    "label": "6",
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "8035368C",
+                                    "baseIndex": 0,
+                                    "label": "7",
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "803536AA",
+                                    "baseIndex": 0,
+                                    "label": "8",
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "803536C8",
+                                    "baseIndex": 0,
+                                    "label": "9",
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                }
+                            ],
+                            "groupName": "away"
+                        },
+                        {
+                            "groupEntries": [
+                                {
+                                    "address": "803536E6",
+                                    "baseIndex": 0,
+                                    "label": "1",
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "80353704",
+                                    "baseIndex": 0,
+                                    "label": "2",
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "80353722",
+                                    "baseIndex": 0,
+                                    "label": "3",
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "80353740",
+                                    "baseIndex": 0,
+                                    "label": "4",
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "8035375E",
+                                    "baseIndex": 0,
+                                    "label": "5",
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "8035377C",
+                                    "baseIndex": 0,
+                                    "label": "6",
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "8035379A",
+                                    "baseIndex": 0,
+                                    "label": "7",
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "803537B8",
+                                    "baseIndex": 0,
+                                    "label": "8",
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                },
+                                {
+                                    "address": "803537D6",
+                                    "baseIndex": 0,
+                                    "label": "9",
+                                    "typeIndex": 1,
+                                    "unsigned": false
+                                }
+                            ],
+                            "groupName": "home"
+                        }
+                    ],
+                    "groupName": "pitcher stamina"
                 }
             ],
             "groupName": "in game"
@@ -681,6 +1056,13 @@
                 }
             ],
             "groupName": "Batting Lineup"
+        },
+        {
+            "address": "80353C04",
+            "baseIndex": 0,
+            "label": "stats char ID 1",
+            "typeIndex": 1,
+            "unsigned": false
         }
     ]
 }
