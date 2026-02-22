@@ -19,6 +19,7 @@ Batting order starting at who's currently up to bat
 -   Original idea was to nop calls to 80065dec (nops occuring at 80047dec and 80047df4  seem like what we want) so the batting order can just be how we set up the charID array. However, this caused errors when entering the game since this function probably sets some critical values.
 -   A workaround is to set the static batting lineup priority positions structure at 80109054 to manipulate how the game sets the lineup. A weird quirk to remember is that the latest captain-type character on the roster gets put into the lineup first.
 -   The workaround is to set the priority positions based on the desired lineup. Eg if we want DK leading off the rest game, we need to assign the power first priority position to be 0. Then if Daisy is next, we make the first balanced priority position to be 1, etc (keeping in mind that the last captain type character needs to be set in the lineup first)
+
 Defensive alignment
 -   803C6738 is the struct for the position of each character on the CSS
 -   The HUD file doesn't have the latest positions of each player, just the number of batters and outs at each position. We can make an educated guess, but it's probably better if we request the latest alignment to be added to the HUD file.
@@ -28,6 +29,7 @@ Handedness
 -   Fielding at 80353c06 and batting at 80353c07 for roster spot [0][0]
 -   Each in mem roster struct has a size of 0xA0, so use this as the gap to skip between each character.
 -   Can just set at boot and it will maintain it until the batting screen.
+-   Lefty = 0, righty = 1
 
 Team stars
 -   In-game addresses: 80892ad6, 80892ad7 (bytes)
@@ -46,6 +48,11 @@ Balls/strikes/outs
 Scores
 -   Away: 808928A4, Home: 808928CA (shorts)
 -   Seems like it can be simply changed anytime after the game starts
+
+Teams batting and fielding indicators
+-   If the game was in the bottom of the inning, the indicators saying who is fielding and batting need to be flipped. Otherwise, the mercy calculations don't work properly.
+-   fielding team 0x80892998 (int). Naturally 0 to start the game, but if bottom, we need to override to 1.
+-   batting team 0x8089299c (int). Naturally 1 to start the game, but if bottom, we need to override to 0.
 
 Pre-game settings
 -  The stadium isn't in the hud file, but MattGree has a PR with this ready to be added.

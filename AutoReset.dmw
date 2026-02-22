@@ -1,6 +1,35 @@
 {
     "watchList": [
         {
+            "address": "8069C6E0",
+            "baseIndex": 1,
+            "label": "inning increment inst",
+            "typeIndex": 2,
+            "unsigned": false
+        },
+        {
+            "address": "80741800",
+            "baseIndex": 1,
+            "label": "menu switch",
+            "typeIndex": 0,
+            "unsigned": false
+        },
+        {
+            "address": "80892AB4",
+            "baseIndex": 0,
+            "label": "start game if statement",
+            "length": 16,
+            "typeIndex": 6,
+            "unsigned": false
+        },
+        {
+            "address": "806C93F0",
+            "baseIndex": 1,
+            "label": "nop loc",
+            "typeIndex": 2,
+            "unsigned": false
+        },
+        {
             "groupEntries": [
                 {
                     "address": "800E877C",
@@ -223,36 +252,6 @@
             "unsigned": false
         },
         {
-            "address": "80750C7F",
-            "baseIndex": 0,
-            "label": "ok button ind (if manually set to 1, is not visible but can be used)",
-            "length": 2,
-            "typeIndex": 6,
-            "unsigned": false
-        },
-        {
-            "address": "80316D78",
-            "baseIndex": 1,
-            "label": "some pointer",
-            "typeIndex": 2,
-            "unsigned": false
-        },
-        {
-            "address": "807518C6",
-            "baseIndex": 0,
-            "label": "team ready ind",
-            "length": 2,
-            "typeIndex": 6,
-            "unsigned": false
-        },
-        {
-            "address": "800E870C",
-            "baseIndex": 0,
-            "label": "player 2 ind",
-            "typeIndex": 0,
-            "unsigned": false
-        },
-        {
             "address": "803530EC",
             "baseIndex": 1,
             "label": "chemParameter",
@@ -428,6 +427,20 @@
                             "length": 8,
                             "typeIndex": 6,
                             "unsigned": false
+                        },
+                        {
+                            "address": "800E8759",
+                            "baseIndex": 0,
+                            "label": "mercy runs",
+                            "typeIndex": 0,
+                            "unsigned": false
+                        },
+                        {
+                            "address": "80892967",
+                            "baseIndex": 0,
+                            "label": "mercy threshold",
+                            "typeIndex": 0,
+                            "unsigned": false
                         }
                     ],
                     "groupName": "game options"
@@ -559,6 +572,35 @@
                     "baseIndex": 0,
                     "label": "team stars",
                     "length": 2,
+                    "typeIndex": 6,
+                    "unsigned": false
+                },
+                {
+                    "address": "80892AD8",
+                    "baseIndex": 0,
+                    "label": "star chance ind",
+                    "typeIndex": 0,
+                    "unsigned": false
+                },
+                {
+                    "address": "80892998",
+                    "baseIndex": 0,
+                    "label": "team fielding",
+                    "typeIndex": 2,
+                    "unsigned": false
+                },
+                {
+                    "address": "8089299C",
+                    "baseIndex": 0,
+                    "label": "team batting",
+                    "typeIndex": 2,
+                    "unsigned": false
+                },
+                {
+                    "address": "80892A80",
+                    "baseIndex": 0,
+                    "label": "Captain roster locations",
+                    "length": 8,
                     "typeIndex": 6,
                     "unsigned": false
                 }
