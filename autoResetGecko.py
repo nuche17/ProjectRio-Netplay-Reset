@@ -1,4 +1,17 @@
+#Auto-reset gecko code generator. Allows for quick resets after crashes using the HUD file.
+#Made my MORI and Nuche
+
 #assumes P1/the host is the away team.
+
+#How to use
+#Run the gecko code on the hud file from the crashed game.
+#Apply the gecko code to the match.
+#P1 and P2 press A until the batting order screen. Ignore the wrong graphics on the character select screens.
+#Set the batting order manually, but with the next batters at the top of the lineups. Ensure superstars and handedness are correct.
+#Press A through the stadium and game option select screens. Again, ignore the graphics.
+#The game should start up with the exact situation prior to the crash. 
+
+#in future versions, the goal is the make the batting order more automated, and fix the graphics.
 
 import json
 from resources import reverse_mappings, captain_ids, character_type, stadium_map, innings_selected_map, mappings, position_map
