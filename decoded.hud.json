@@ -1,7 +1,11 @@
 {
+  "GameID": "2,170,754,302",
+  "TagSetID": 151,
+  "StadiumID": "Peach Garden",
   "Event Num": "137b",
   "Away Player": "Nuche17",
   "Home Player": "Cornman",
+  "Innings Selected": 7,
   "Inning": 6,
   "Half Inning": 1,
   "Away Score": 2,
@@ -9,9 +13,9 @@
   "Balls": 0,
   "Strikes": 1,
   "Outs": 1,
-  "Star Chance": 0,
-  "Away Stars": 1,
-  "Home Stars": 1,
+  "Star Chance": 1,
+  "Away Stars": 3,
+  "Home Stars": 5,
   "Pitcher Stamina": 6,
   "Chemistry Links on Base": 1,
   "Num Outs During Play": 0,
@@ -186,7 +190,7 @@
     "RosterID": 3,
     "CharID": "Bro(B)",
     "Superstar": 0,
-    "Captain": 1,
+    "Captain": 0,
     "Fielding Hand": "Left",
     "Batting Hand": "Right",
     "Defensive Stats": {
@@ -297,7 +301,7 @@
     "RosterID": 5,
     "CharID": "Wario",
     "Superstar": 0,
-    "Captain": 0,
+    "Captain": 1,
     "Fielding Hand": "Right",
     "Batting Hand": "Left",
     "Defensive Stats": {
@@ -1049,6 +1053,28 @@
     "Out Location": 0,
     "Steal": "None",
     "Runner Result Base": 4
+  },
+  "Positions Away": {
+    "P": "King Boo",
+    "C": "Petey",
+    "1B": "Boo",
+    "2B": "Pianta(R)",
+    "3B": "Magikoopa(B)",
+    "SS": "Wario",
+    "LF": "Noki(G)",
+    "CF": "Bro(B)",
+    "RF": "Luigi"
+  },
+  "Positions Home": {
+    "P": "Peach",
+    "C": "Bowser",
+    "1B": "Toadsworth",
+    "2B": "DK",
+    "3B": "Waluigi",
+    "SS": "Birdo",
+    "LF": "Yoshi",
+    "CF": "Dry Bones(G)",
+    "RF": "Mario"
   },
   "Previous Event": {
     "RBI": 1,
