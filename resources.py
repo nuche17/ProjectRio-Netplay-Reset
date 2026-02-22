@@ -60,7 +60,8 @@ mappings = {
 # Flip dictionary
 reverse_mappings = dict((v, k) for k, v in mappings.items())
 
-captain_ids = [0, 1, 2, 3, 4, 5, 6, 9, 10, 11, 17, 19]
+#The order is how the game indexes the captains, which is useful for the team logos.
+captain_ids = [0, 1, 4, 5, 6, 17, 10, 11, 2, 3, 9, 19]
 
 character_type = {
     0: 0,
@@ -118,4 +119,21 @@ character_type = {
     52: 1,
     53: 1,
     None: "None"
+}
+
+stadium_map = {
+      "Mario Stadium": 0,
+      "Peach Garden": 1,
+      "Wario Palace": 2,
+      "Yoshi Park": 3,
+      "DK Jungle": 4,
+      "Bowser Castle": 5
+}
+
+innings_selected_map = {
+      1: 0,
+      3: 1,
+      5: 2,
+      7: 3,
+      9: 4
 }
