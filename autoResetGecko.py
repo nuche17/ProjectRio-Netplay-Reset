@@ -165,7 +165,13 @@ for runnerNum in range(4):
                   geckoCode += "\n02" + hex(aRosterID0 + rosterIDGap * resultBase + 2)[4:] + " " + zerosCharID * "0" + hex(runnerCharID)[2:]
                   geckoCode += "\n04" + hex(aNopLocation + nopLocGap * resultBase)[4:] + " 60000000"
 
-#TODO: glitch where runners are still present in the next inning
+#end if statement, check if the converse is true for any post-processing code
+geckoCode += "\n2A892ab5 00000000" #end first if statement, check if the converse is true (<> 0)
+
+#restore nop'd runner instructions to prevent overwriting the runners after the start of the game.
+geckoCode += "\n04" + hex(aNopLocation + nopLocGap * 1)[4:] + " B0650234"
+geckoCode += "\n04" + hex(aNopLocation + nopLocGap * 2)[4:] + " B06500E0"
+geckoCode += "\n04" + hex(aNopLocation + nopLocGap * 3)[4:] + " B06500E0"
 
 #TODO: very longterm adjust the player's stats so that the hud file is more accurate.     
 
