@@ -137,3 +137,15 @@ innings_selected_map = {
       7: 3,
       9: 4
 }
+
+position_map = {
+   "P": 0,
+   "C": 1,
+   "1B": 2,
+   "2B": 3,
+   "3B": 4,
+   "SS": 5,
+   "LF": 6,
+   "CF": 7,
+   "RF": 8
+}

@@ -1,7 +1,7 @@
 #assumes P1/the host is the away team.
 
 import json
-from resources import reverse_mappings, captain_ids, character_type, stadium_map, innings_selected_map, mappings
+from resources import reverse_mappings, captain_ids, character_type, stadium_map, innings_selected_map, mappings, position_map
 from pyrio.stat_file_parser import HudObj 
 
 hud = HudObj(json.load(open('decoded.hud.json')))
@@ -24,6 +24,30 @@ while i < 9:
                   hud.roster(hud.batting_team())[(hud.batter_roster_location() + i) % 9]['char_id']
             ])
       i += 1
+
+#determine batting order for team currently fielding
+teamName = "Home" if (hud.fielding_team == 1) else "Away"
+i = 0
+max_pa = 0
+max_pa_rosterLoc = 0
+while i < 9:
+      oStats = hud.character_offensive_stats(hud.fielding_team(), i)
+      
+      current_pa = oStats["At Bats"] + oStats["Walks (4 Balls)"] + oStats["Walks (Hit)"]
+      
+      if current_pa >= max_pa:
+            max_pa = current_pa
+            max_pa_rosterLoc = i
+      
+      i += 1
+
+i = 0
+team_fielding_battingOrder = []
+while i < 9:
+      # + 1 since we want batter after one with most PAs
+      team_fielding_battingOrder.append(reverse_mappings[hud.roster(hud.fielding_team())[(max_pa_rosterLoc + 1 + i) % 9]['char_id']])
+      i += 1
+print(team_fielding_battingOrder)
      
 #put final gecko code together
 geckoCode = ""
@@ -97,8 +121,6 @@ homeLogoZeros = 7 if captain_ids.index(captainCharIDs[1])*4 < 16 else 6
 geckoCode += "\n003530AD " + awayLogoZeros * "0" + hex(captain_ids.index(captainCharIDs[0])*4)[2:]
 geckoCode += "\n003530AE " + homeLogoZeros * "0" + hex(captain_ids.index(captainCharIDs[1])*4)[2:]
 
-#Character positions - done by setting the roster in the order of the positions, so no extra code needed.
-#TODO: solve glitch where pitcher has wrong animation at start of inning.
 
 
 # IN GAME VALUES
@@ -146,6 +168,50 @@ geckoCode += "\n00892ad8 0000000" + str(hud.star_chance())
 
 #TODO: pitcher stamina. Might make sense to do for all characters and not just the active pitcher.
 
+
+#Character positions - done by setting the roster in the order of the positions, so no extra code needed.
+#TODO: solve glitch where pitcher has wrong animation at start of inning.
+#it involves fixing the struct at 0x808929c8
+#try using the presumed batting order (so assume the player put the batting order correctly whens starting)
+
+aBattingPositionStruct = 0x808929c8
+gapCharacter = 0x8
+gapTeam = gapCharacter * 10
+teamNames = ["Away", "Home"] #always assumes P1 is away
+
+for teamNum, teamName in enumerate(teamNames):
+
+      battingOrder = team_batting_battingOrder if teamNum == hud.half_inning() else team_fielding_battingOrder
+
+      for positionNum in range(10):
+
+            if positionNum == 0: #first slot is the pitcher
+                  pitcherName = hudJSON[f"Positions {teamName}"]["P"]
+                  pitcherRosterSpot = -1
+                  #TODO fix home and away to use right batting order (fielding or batting)
+                  for position, characterID in enumerate(battingOrder):
+                        characterName = mappings[characterID]
+                        if characterName == pitcherName:
+                              pitcherRosterSpot = position
+                              print("found pitcher roster spot: " + str(pitcherRosterSpot))
+                              break
+
+                  geckoCode += "\n04" + hex(aBattingPositionStruct + teamNum * gapTeam)[4:] + " 0000000" + str(pitcherRosterSpot)
+                  geckoCode += "\n04" + hex(aBattingPositionStruct + teamNum * gapTeam + 0x4)[4:] + " 00000000"
+
+            else:
+                  characterName = mappings[battingOrder[positionNum - 1]]
+                  characterPosition = None
+                  for position, character in hudJSON[f"Positions {teamName}"].items():
+                        if character == characterName:
+                              characterPosition = position_map[position]
+                              break                  
+                  
+                  geckoCode += "\n04" + hex(aBattingPositionStruct + teamNum * gapTeam + positionNum * gapCharacter)[4:] + " 0000000" + str(positionNum - 1)
+                  geckoCode += "\n04" + hex(aBattingPositionStruct + teamNum * gapTeam + positionNum * gapCharacter + 0x4)[4:] + " 0000000" + str(characterPosition)
+
+
+
 #runners
 #adds some nop instructions for the function calls that remove baserunners.
 aNopLocation = 0x806c93f0
@@ -176,3 +242,10 @@ geckoCode += "\n04" + hex(aNopLocation + nopLocGap * 3)[4:] + " B06500E0"
 #TODO: very longterm adjust the player's stats so that the hud file is more accurate.     
 
 print(geckoCode)
+
+if hud.half_inning() == 0:
+      print("Away team batting order: ", [mappings[x] for x in team_batting_battingOrder])
+      print("Home team batting order: ", [mappings[x] for x in team_fielding_battingOrder])
+else: 
+      print("Away team batting order: ", [mappings[x] for x in team_fielding_battingOrder])
+      print("Home team batting order: ", [mappings[x] for x in team_batting_battingOrder])
