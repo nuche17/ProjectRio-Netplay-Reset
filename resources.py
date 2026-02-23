@@ -1,5 +1,5 @@
 # Character ID mappings
-mappings = {
+charID_to_charName = {
     0: "Mario",
     1: "Luigi",
     2: "DK",
@@ -58,7 +58,7 @@ mappings = {
 }
 
 # Flip dictionary
-reverse_mappings = dict((v, k) for k, v in mappings.items())
+charName_to_charID = dict((v, k) for k, v in charID_to_charName.items())
 
 #The order is how the game indexes the captains, which is useful for the team logos.
 captain_ids = [0, 1, 4, 5, 6, 17, 10, 11, 2, 3, 9, 19]

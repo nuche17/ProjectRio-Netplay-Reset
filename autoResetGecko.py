@@ -15,7 +15,7 @@
 #in future versions, the goal is the make the batting order more automated, and fix the graphics.
 
 import json
-from resources import reverse_mappings, captain_ids, character_type, stadium_map, innings_selected_map, mappings, position_map
+from resources import charID_to_charName, charName_to_charID, captain_ids, character_type, stadium_map, innings_selected_map, position_map
 from pyrio.stat_file_parser import HudObj 
 
 hud = HudObj(json.load(open('decoded.hud.json')))
@@ -26,7 +26,7 @@ position_rosters = []
 for teamIndex, teamName in enumerate(["Away", "Home"]):
       team_position_roster = []
       for position, character in hudJSON[f"Positions {teamName}"].items():
-            team_position_roster.append(reverse_mappings[character])
+            team_position_roster.append(charName_to_charID[character])
       position_rosters.append(team_position_roster)
 
 #determine batting order for team currently up to bat
@@ -34,7 +34,7 @@ i = 0
 team_batting_battingOrder = []
 while i < 9:
       team_batting_battingOrder.append(
-            reverse_mappings[
+            charName_to_charID[
                   hud.roster(hud.batting_team())[(hud.batter_roster_location() + i) % 9]['char_id']
             ])
       i += 1
@@ -62,10 +62,10 @@ while i < 9:
       # + 1 since we want batter after one with most PAs
       #Exception if fielding team hasn't batted yet, so all PAs are 0.
       if max_pa != 0:
-            team_fielding_battingOrder.append(reverse_mappings[hud.roster(hud.fielding_team())[(max_pa_rosterLoc + 1 + i) % 9]['char_id']])
+            team_fielding_battingOrder.append(charName_to_charID[hud.roster(hud.fielding_team())[(max_pa_rosterLoc + 1 + i) % 9]['char_id']])
       else:
             
-            team_fielding_battingOrder.append(reverse_mappings[hud.roster(hud.fielding_team())[i]['char_id']])
+            team_fielding_battingOrder.append(charName_to_charID[hud.roster(hud.fielding_team())[i]['char_id']])
       i += 1
      
 #put final gecko code together
@@ -123,8 +123,8 @@ while i < 2:
 
 #set team captain
 captainCharIDs = [
-      reverse_mappings[hud.roster(0)[hud.captain_index(0)]['char_id']],
-      reverse_mappings[hud.roster(1)[hud.captain_index(1)]['char_id']]
+      charName_to_charID[hud.roster(0)[hud.captain_index(0)]['char_id']],
+      charName_to_charID[hud.roster(1)[hud.captain_index(1)]['char_id']]
 ]
 
 awayCaptainZeros = 7 if captainCharIDs[0] < 16 else 6
@@ -219,7 +219,7 @@ for teamNum, teamName in enumerate(teamNames):
                   pitcherRosterSpot = -1
                   #TODO fix home and away to use right batting order (fielding or batting)
                   for position, characterID in enumerate(battingOrder):
-                        characterName = mappings[characterID]
+                        characterName = charID_to_charName[characterID]
                         if characterName == pitcherName:
                               pitcherRosterSpot = position
                               break
@@ -228,7 +228,7 @@ for teamNum, teamName in enumerate(teamNames):
                   geckoCode += "\n04" + hex(aBattingPositionStruct + teamNum * gapTeam + 0x4)[4:] + " 00000000"
 
             else:
-                  characterName = mappings[battingOrder[positionNum - 1]]
+                  characterName = charID_to_charName[battingOrder[positionNum - 1]]
                   characterPosition = None
                   for position, character in hudJSON[f"Positions {teamName}"].items():
                         if character == characterName:
@@ -249,7 +249,7 @@ rosterIDGap = 0x154
 
 for runnerNum in [1, 2, 3]:
       if hud.runner_on_base(runnerNum):
-            runnerCharID = reverse_mappings[hud.runner(runnerNum).get("Runner Char Id", -1)]
+            runnerCharID = charName_to_charID[hud.runner(runnerNum).get("Runner Char Id", -1)]
             runnerRosterSpot = team_batting_battingOrder.index(runnerCharID)
             zerosCharID = 7 if runnerCharID < 16 else 6
 
@@ -262,7 +262,7 @@ for runnerNum in [1, 2, 3]:
 #       if hud.runner_on_base(runnerNum):
 #             resultBase = hud.runner(runnerNum).get("Runner Result Base", -1)
 #             if resultBase in [1, 2, 3]:
-#                   runnerCharID = reverse_mappings[hud.runner(runnerNum).get("Runner Char Id", -1)]
+#                   runnerCharID = charName_to_charID[hud.runner(runnerNum).get("Runner Char Id", -1)]
 #                   runnerRosterSpot = team_batting_battingOrder.index(runnerCharID)
 #                   zerosCharID = 7 if runnerCharID < 16 else 6
 
@@ -283,11 +283,11 @@ geckoCode += "\n04" + hex(aNopLocation + nopLocGap * 3)[4:] + " B06500E0"
 print(geckoCode)
 
 if hud.half_inning() == 0:
-      print("Away team batting order: ", [mappings[x] for x in team_batting_battingOrder])
-      print("Home team batting order: ", [mappings[x] for x in team_fielding_battingOrder])
+      print("Away team batting order: ", [charID_to_charName[x] for x in team_batting_battingOrder])
+      print("Home team batting order: ", [charID_to_charName[x] for x in team_fielding_battingOrder])
 else: 
-      print("Away team batting order: ", [mappings[x] for x in team_fielding_battingOrder])
-      print("Home team batting order: ", [mappings[x] for x in team_batting_battingOrder])
+      print("Away team batting order: ", [charID_to_charName[x] for x in team_fielding_battingOrder])
+      print("Home team batting order: ", [charID_to_charName[x] for x in team_batting_battingOrder])
 
 #TODO: prevent changing fielder locations pre-game.
 #TODO: prevent moving the cursor in character select screen, stadium select, and game settings.
