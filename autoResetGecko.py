@@ -74,11 +74,16 @@ while i < 9:
 #put final gecko code together
 geckoCode = ""
 
+#add if statement if on main menu (rel = 4)
+geckoCode += "280e877c 00000004\n" 
+
 #GAME SETTINGS
 
 #Set stadium - works by adjusting the cursor starting position
 #TODO update to pyrio code once stadium is officially in prod hud file. 
-geckoCode = geckoCode + "00750c37 " + "0000000" + hex(stadium_map[hudJSON["StadiumID"]])[2:]
+geckoCode += "00750c37 " + "0000000" + hex(stadium_map[hudJSON["StadiumID"]])[2:]
+geckoCode += "\n02650586 00000000" #prevent right cursor movement
+geckoCode += "\n02650536 00000000" #prevent left cursor movement
 
 # first bat - 0 = P1, 1 = P2. If away team is P1, then half inning matches first bat. Otherwise, invert.
 if awayPlayer == 0:
@@ -96,6 +101,10 @@ geckoCode = geckoCode + "\n003c5f42 0000000" + hex(innings_selected_map[hudJSON[
 #TODO: remove hardcoding. Until in HUD file, assumed to be on.
 geckoCode = geckoCode + "\n003c5f43 00000001"
 
+#prevent moving the cursor on this screen
+geckoCode += "\n02049616 00000000"
+geckoCode += "\n020495da 00000000"
+
 #ROSTERS
 
 #Sets the character selected indicators on character select screen
@@ -107,15 +116,15 @@ geckoCode = geckoCode + "\n00750C7F 00010001"
 #put cursors on OK buttons
 geckoCode = geckoCode + "\n04750c48 00000009\n04750c4C 00000009"
 
+#prevent moving the cursor on character select screen
+geckoCode += "\n0464df60 60000000"
+
 #make part of gecko code that puts character IDs into the roster
 #putting in order of positions as that makes other parts of the code simpler.
 aRosterIDs = 0x803C6726
 
-print("Position_rosters:", position_rosters)
 for teamNum in range(2):
       for charNum in range(9):
-            print(f"Team {teamNum} char {charNum} away player {awayPlayer}: ", ((teamNum + awayPlayer) % 2) * 9 + charNum)
-            print(f"Character ID: {charID_to_charName[position_rosters[((teamNum + awayPlayer) % 2)][charNum]]}")
             characterID = position_rosters[((teamNum + awayPlayer) % 2)][charNum]
             nZeros = 7 if characterID < 16 else 6
 
@@ -149,6 +158,9 @@ geckoCode += "\n003530AE " + p2LogoZeros * "0" + hex(captain_ids.index(captainCh
 
 
 # IN GAME VALUES
+#if statement for if the game state is in a match (rel = 5)
+#ends prior if statement
+geckoCode += "\n280e877d 00000005"
 
 # If statement is used to make this code run until the "game started indicator" is true.
 # its a 16 but write since I can't find the code for an 8 bit write, but the address before it is 0 at the start of the game
@@ -164,7 +176,6 @@ geckoCode += "\n0489299C 0000000" + str(hud.fielding_team()) #team fielding
 
 #scores - need to fill the current score and the 1st inning score memory locations, otherwise scoring a run will cause the score to be wrong.
 #TODO: later version. Set prior innings scores properly when the info is available in the hud files.
-#TODO: currently assumes away is always P1 and home is always P2, so will need to adjust if that is not the case.
 awayScore = hud.score(0)
 homeScore = hud.score(1)
 
@@ -210,7 +221,7 @@ for team in range(2):
 aBattingPositionStruct = 0x808929c8
 gapCharacter = 0x8
 gapTeam = gapCharacter * 10
-teamNames = ["Away", "Home"] #always assumes P1 is away (Update, it might not matter..)
+teamNames = ["Away", "Home"] 
 
 for teamNum, teamName in enumerate(teamNames):
 
