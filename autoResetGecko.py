@@ -21,6 +21,9 @@ from pyrio.stat_file_parser import HudObj
 hud = HudObj(json.load(open('decoded.hud.json')))
 hudJSON = json.load(open('decoded.hud.json'))
 
+#set which player is away. 0 for P1, 1 for P2.
+awayPlayer = 0 
+
 #rosters ordered by position TODO: update to pyrio code once the positions are officially in the prod hud file.
 position_rosters = []
 for teamIndex, teamName in enumerate(["Away", "Home"]):
@@ -77,8 +80,11 @@ geckoCode = ""
 #TODO update to pyrio code once stadium is officially in prod hud file. 
 geckoCode = geckoCode + "00750c37 " + "0000000" + hex(stadium_map[hudJSON["StadiumID"]])[2:]
 
-# first bat - 0 = P1, 1 = P2. We are assuming  the host/P1 is the away team, so the half inning value should match who bats first.
-geckoCode = geckoCode + "\n003c5f40 0000000" + hex(hud.half_inning())[2:] 
+# first bat - 0 = P1, 1 = P2. If away team is P1, then half inning matches first bat. Otherwise, invert.
+if awayPlayer == 0:
+      geckoCode += "\n003c5f40 0000000" + hex(hud.half_inning())[2:]
+else:      
+      geckoCode += "\n003c5f40 0000000" + hex(1 - hud.half_inning())[2:]
 
 #TODO: star skill setting. Until in HUD file, assumed on.
 
@@ -105,16 +111,15 @@ geckoCode = geckoCode + "\n04750c48 00000009\n04750c4C 00000009"
 #putting in order of positions as that makes other parts of the code simpler.
 aRosterIDs = 0x803C6726
 
-i = 0
-while i < 2:
-      j = 0
-      while j < 9:
-            geckoCode = geckoCode + "\n00" + hex(aRosterIDs + i * 9 + j)[4:]
-            nZeros = 7 if position_rosters[i][j] < 16 else 6
-            geckoCode = geckoCode + " " + nZeros * "0" + hex(position_rosters[i][j])[2:]
-            j += 1
-      i += 1
+print("Position_rosters:", position_rosters)
+for teamNum in range(2):
+      for charNum in range(9):
+            print(f"Team {teamNum} char {charNum} away player {awayPlayer}: ", ((teamNum + awayPlayer) % 2) * 9 + charNum)
+            print(f"Character ID: {charID_to_charName[position_rosters[((teamNum + awayPlayer) % 2)][charNum]]}")
+            characterID = position_rosters[((teamNum + awayPlayer) % 2)][charNum]
+            nZeros = 7 if characterID < 16 else 6
 
+            geckoCode += "\n00" + hex(aRosterIDs + teamNum * 9 + charNum)[4:] + " " + nZeros * "0" + hex(characterID)[2:]
 
 #TODO: set superstars in batting order. Unfortunately, starring runs a function that adjusts the stats, so it's not as simple as toggling a memory address.
 
@@ -127,19 +132,19 @@ captainCharIDs = [
       charName_to_charID[hud.roster(1)[hud.captain_index(1)]['char_id']]
 ]
 
-awayCaptainZeros = 7 if captainCharIDs[0] < 16 else 6
-homeCaptainZeros = 7 if captainCharIDs[1] < 16 else 6
+p1CaptainZeros = 7 if captainCharIDs[awayPlayer] < 16 else 6
+p2CaptainZeros = 7 if captainCharIDs[1 - awayPlayer] < 16 else 6
 
-geckoCode += "\n04353080 " + awayCaptainZeros * "0" + hex(captainCharIDs[0])[2:]
-geckoCode += "\n04353084 " + homeCaptainZeros * "0" + hex(captainCharIDs[1])[2:]
+geckoCode += "\n04353080 " + p1CaptainZeros * "0" + hex(captainCharIDs[awayPlayer])[2:]
+geckoCode += "\n04353084 " + p2CaptainZeros * "0" + hex(captainCharIDs[1 - awayPlayer])[2:]
 
 #team logo - TODO currently set as a default based on the captain, but should improve to be based on composition of the team.
 #hopefully, this is eventually in the hud file directly, which would make this viable for league play.
-awayLogoZeros = 7 if captain_ids.index(captainCharIDs[0])*4 < 16 else 6
-homeLogoZeros = 7 if captain_ids.index(captainCharIDs[1])*4 < 16 else 6
+p1LogoZeros = 7 if captain_ids.index(captainCharIDs[awayPlayer])*4 < 16 else 6
+p2LogoZeros = 7 if captain_ids.index(captainCharIDs[1 - awayPlayer])*4 < 16 else 6
 
-geckoCode += "\n003530AD " + awayLogoZeros * "0" + hex(captain_ids.index(captainCharIDs[0])*4)[2:]
-geckoCode += "\n003530AE " + homeLogoZeros * "0" + hex(captain_ids.index(captainCharIDs[1])*4)[2:]
+geckoCode += "\n003530AD " + p1LogoZeros * "0" + hex(captain_ids.index(captainCharIDs[awayPlayer])*4)[2:]
+geckoCode += "\n003530AE " + p2LogoZeros * "0" + hex(captain_ids.index(captainCharIDs[1 - awayPlayer])*4)[2:]
 
 
 
@@ -187,6 +192,7 @@ geckoCode += "\n00892ad7 0000000" + str(hud.team_stars(1)) #home team stars
 geckoCode += "\n00892ad8 0000000" + str(hud.star_chance())
 
 #pitcher stamina.
+#TODO: confirm works correctly when P1 is home.
 aStamina = 0x803535d8
 gapPlayer = 0x803535f6 - 0x803535d8
 gapTeam = gapPlayer * 9
@@ -201,12 +207,10 @@ for team in range(2):
             geckoCode += "\n02" + hex(aStamina + team * gapTeam + battingPos * gapPlayer)[4:] + " 0000000" + hex(stamina)[2:]
             
 #Character positions - done by setting the roster in the order of the positions, so no extra code needed.
-#it involves fixing the struct at 0x808929c8
-#try using the presumed batting order (so assume the player put the batting order correctly whens starting)
 aBattingPositionStruct = 0x808929c8
 gapCharacter = 0x8
 gapTeam = gapCharacter * 10
-teamNames = ["Away", "Home"] #always assumes P1 is away
+teamNames = ["Away", "Home"] #always assumes P1 is away (Update, it might not matter..)
 
 for teamNum, teamName in enumerate(teamNames):
 
@@ -217,7 +221,6 @@ for teamNum, teamName in enumerate(teamNames):
             if positionNum == 0: #first slot is the pitcher
                   pitcherName = hudJSON[f"Positions {teamName}"]["P"]
                   pitcherRosterSpot = -1
-                  #TODO fix home and away to use right batting order (fielding or batting)
                   for position, characterID in enumerate(battingOrder):
                         characterName = charID_to_charName[characterID]
                         if characterName == pitcherName:
@@ -282,12 +285,12 @@ geckoCode += "\n04" + hex(aNopLocation + nopLocGap * 3)[4:] + " B06500E0"
 
 print(geckoCode)
 
-if hud.half_inning() == 0:
-      print("Away team batting order: ", [charID_to_charName[x] for x in team_batting_battingOrder])
-      print("Home team batting order: ", [charID_to_charName[x] for x in team_fielding_battingOrder])
+if (awayPlayer == 0 and hud.half_inning() == 0) or (awayPlayer == 1 and hud.half_inning() == 1):
+      print("P1 batting order: ", [charID_to_charName[x] for x in team_batting_battingOrder])
+      print("P2 batting order: ", [charID_to_charName[x] for x in team_fielding_battingOrder])
 else: 
-      print("Away team batting order: ", [charID_to_charName[x] for x in team_fielding_battingOrder])
-      print("Home team batting order: ", [charID_to_charName[x] for x in team_batting_battingOrder])
+      print("P1 batting order: ", [charID_to_charName[x] for x in team_fielding_battingOrder])
+      print("P2 batting order: ", [charID_to_charName[x] for x in team_batting_battingOrder])
 
 #TODO: prevent changing fielder locations pre-game.
 #TODO: prevent moving the cursor in character select screen, stadium select, and game settings.
