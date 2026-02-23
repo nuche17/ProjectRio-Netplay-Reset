@@ -1,4 +1,5 @@
 #Auto-reset gecko code generator. Allows for quick resets after crashes using the HUD file.
+#Reverts back to the previous pitch before the crash.
 #Made my MORI and Nuche
 
 #assumes P1/the host is the away team.
@@ -59,9 +60,13 @@ i = 0
 team_fielding_battingOrder = []
 while i < 9:
       # + 1 since we want batter after one with most PAs
-      team_fielding_battingOrder.append(reverse_mappings[hud.roster(hud.fielding_team())[(max_pa_rosterLoc + 1 + i) % 9]['char_id']])
+      #Exception if fielding team hasn't batted yet, so all PAs are 0.
+      if max_pa != 0:
+            team_fielding_battingOrder.append(reverse_mappings[hud.roster(hud.fielding_team())[(max_pa_rosterLoc + 1 + i) % 9]['char_id']])
+      else:
+            
+            team_fielding_battingOrder.append(reverse_mappings[hud.roster(hud.fielding_team())[i]['char_id']])
       i += 1
-print(team_fielding_battingOrder)
      
 #put final gecko code together
 geckoCode = ""
@@ -193,7 +198,6 @@ for team in range(2):
 
       for battingPos in range(9):
             stamina = hud.character_defensive_stats(team, (startingBattingPosition + battingPos) % 9)['Stamina']
-            print("\n02" + hex(aStamina + team * gapTeam + battingPos * gapPlayer)[4:] + " 0000000" + hex(stamina)[2:])
             geckoCode += "\n02" + hex(aStamina + team * gapTeam + battingPos * gapPlayer)[4:] + " 0000000" + hex(stamina)[2:]
             
 #Character positions - done by setting the roster in the order of the positions, so no extra code needed.
@@ -218,7 +222,6 @@ for teamNum, teamName in enumerate(teamNames):
                         characterName = mappings[characterID]
                         if characterName == pitcherName:
                               pitcherRosterSpot = position
-                              print("found pitcher roster spot: " + str(pitcherRosterSpot))
                               break
 
                   geckoCode += "\n04" + hex(aBattingPositionStruct + teamNum * gapTeam)[4:] + " 0000000" + str(pitcherRosterSpot)
@@ -244,17 +247,28 @@ nopLocGap = 0x30
 aRosterID0 = 0x8088eef8
 rosterIDGap = 0x154
 
-for runnerNum in range(4):
+for runnerNum in [1, 2, 3]:
       if hud.runner_on_base(runnerNum):
-            resultBase = hud.runner(runnerNum).get("Runner Result Base", -1)
-            if resultBase in [1, 2, 3]:
-                  runnerCharID = reverse_mappings[hud.runner(runnerNum).get("Runner Char Id", -1)]
-                  runnerRosterSpot = team_batting_battingOrder.index(runnerCharID)
-                  zerosCharID = 7 if runnerCharID < 16 else 6
+            runnerCharID = reverse_mappings[hud.runner(runnerNum).get("Runner Char Id", -1)]
+            runnerRosterSpot = team_batting_battingOrder.index(runnerCharID)
+            zerosCharID = 7 if runnerCharID < 16 else 6
 
-                  geckoCode += "\n02" + hex(aRosterID0 + rosterIDGap * resultBase)[4:] + " 0000000" + str(runnerRosterSpot)
-                  geckoCode += "\n02" + hex(aRosterID0 + rosterIDGap * resultBase + 2)[4:] + " " + zerosCharID * "0" + hex(runnerCharID)[2:]
-                  geckoCode += "\n04" + hex(aNopLocation + nopLocGap * resultBase)[4:] + " 60000000"
+            geckoCode += "\n02" + hex(aRosterID0 + rosterIDGap * runnerNum)[4:] + " 0000000" + str(runnerRosterSpot)
+            geckoCode += "\n02" + hex(aRosterID0 + rosterIDGap * runnerNum + 2)[4:] + " " + zerosCharID * "0" + hex(runnerCharID)[2:]
+            geckoCode += "\n04" + hex(aNopLocation + nopLocGap * runnerNum)[4:] + " 60000000"
+
+#below code takes into account what happened on the pitch due to weirdness in the hud. Going to revert back to the previous pitch, so no need for this logic.
+# for runnerNum in range(4):
+#       if hud.runner_on_base(runnerNum):
+#             resultBase = hud.runner(runnerNum).get("Runner Result Base", -1)
+#             if resultBase in [1, 2, 3]:
+#                   runnerCharID = reverse_mappings[hud.runner(runnerNum).get("Runner Char Id", -1)]
+#                   runnerRosterSpot = team_batting_battingOrder.index(runnerCharID)
+#                   zerosCharID = 7 if runnerCharID < 16 else 6
+
+#                   geckoCode += "\n02" + hex(aRosterID0 + rosterIDGap * resultBase)[4:] + " 0000000" + str(runnerRosterSpot)
+#                   geckoCode += "\n02" + hex(aRosterID0 + rosterIDGap * resultBase + 2)[4:] + " " + zerosCharID * "0" + hex(runnerCharID)[2:]
+#                   geckoCode += "\n04" + hex(aNopLocation + nopLocGap * resultBase)[4:] + " 60000000"
 
 #end if statement, check if the converse is true for any post-processing code
 geckoCode += "\n2A892ab5 00000000" #end first if statement, check if the converse is true (<> 0)
@@ -274,3 +288,6 @@ if hud.half_inning() == 0:
 else: 
       print("Away team batting order: ", [mappings[x] for x in team_fielding_battingOrder])
       print("Home team batting order: ", [mappings[x] for x in team_batting_battingOrder])
+
+#TODO: prevent changing fielder locations pre-game.
+#TODO: prevent moving the cursor in character select screen, stadium select, and game settings.
