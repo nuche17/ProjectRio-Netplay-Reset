@@ -1,8 +1,8 @@
 {  
   "GameID": "2,170,754,302",
+  "Event Num": "2a",
   "TagSetID": 151,
   "StadiumID": "Wario Palace",
-  "Event Num": "2b",
   "Away Player": "Nuche17",
   "Home Player": "CPU",
   "Innings Selected": 5,
@@ -18,7 +18,7 @@
   "Home Stars": 3,
   "Pitcher Stamina": 10,
   "Chemistry Links on Base": 0,
-  "Num Outs During Play": 1,
+  "Num Outs During Play": 255,
   "Pitcher Roster Loc": 2,
   "Batter Roster Loc": 1,
   "Away Roster 0": {
@@ -99,7 +99,7 @@
       ]
     },
     "Offensive Stats": {
-      "At Bats": 1,
+      "At Bats": 0,
       "Hits": 0,
       "Singles": 0,
       "Doubles": 0,
@@ -474,7 +474,7 @@
       ],
       "Batter Outs Per Position": [
         {
-            "CF": 2
+            "CF": 1
         }
       ],
       "Outs Per Position": [
@@ -527,7 +527,7 @@
       ],
       "Batter Outs Per Position": [
         {
-            "LF": 2
+            "LF": 1
         }
       ],
       "Outs Per Position": [
@@ -559,20 +559,20 @@
     "Fielding Hand": "Right",
     "Batting Hand": "Left",
     "Defensive Stats": {
-      "Batters Faced": 2,
+      "Batters Faced": 1,
       "Runs Allowed": 0,
       "Earned Runs": 0,
       "Batters Walked": 0,
       "Batters Hit": 0,
       "Hits Allowed": 0,
       "HRs Allowed": 0,
-      "Pitches Thrown": 3,
+      "Pitches Thrown": 2,
       "Stamina": 10,
       "Was Pitcher": 1,
       "Strikeouts": 0,
       "Star Pitches Thrown": 0,
       "Big Plays": 0,
-      "Outs Pitched": 2,
+      "Outs Pitched": 1,
       "Batters Per Position": [
         {
             "P": 1
@@ -580,7 +580,7 @@
       ],
       "Batter Outs Per Position": [
         {
-            "P": 2
+            "P": 1
         }
       ],
       "Outs Per Position": [
@@ -633,7 +633,7 @@
       ],
       "Batter Outs Per Position": [
         {
-            "C": 2
+            "C": 1
         }
       ],
       "Outs Per Position": [
@@ -686,7 +686,7 @@
       ],
       "Batter Outs Per Position": [
         {
-            "1B": 2
+            "1B": 1
         }
       ],
       "Outs Per Position": [
@@ -739,7 +739,7 @@
       ],
       "Batter Outs Per Position": [
         {
-            "3B": 2
+            "3B": 1
         }
       ],
       "Outs Per Position": [
@@ -792,7 +792,7 @@
       ],
       "Batter Outs Per Position": [
         {
-            "RF": 2
+            "RF": 1
         }
       ],
       "Outs Per Position": [
@@ -845,12 +845,12 @@
       ],
       "Batter Outs Per Position": [
         {
-            "2B": 2
+            "2B": 1
         }
       ],
       "Outs Per Position": [
         {
-            "2B": 2
+            "2B": 1
         }
       ]
     },
@@ -901,7 +901,7 @@
       ],
       "Batter Outs Per Position": [
         {
-            "SS": 2
+            "SS": 1
         }
       ],
       "Outs Per Position": [
@@ -950,14 +950,14 @@
     "Runner Roster Loc": 1,
     "Runner Char Id": "Peach",
     "Runner Initial Base": 0,
-    "Out Type": "Force",
+    "Out Type": "None",
     "Out Location": 0,
     "Steal": "None",
-    "Runner Result Base": 255
+    "Runner Result Base": 0
   },
   "Previous Event": {
     "RBI": 0,
-    "Result of AB": "Out",
+    "Result of AB": "None",
     "Pitch": {
       "Pitcher Team Id": 1,
       "Pitcher Char Id": "Daisy",
@@ -965,54 +965,12 @@
       "Charge Type": "Slider",
       "Star Pitch": 0,
       "Pitch Speed": 160,
-      "Ball Position - Strikezone": -0.140688,
+      "Ball Position - Strikezone": 0.0638745,
       "In Strikezone": 1,
         "Bat Contact Pos - X": 0,
         "Bat Contact Pos - Z": 0.4,
       "DB": 0,
-      "Type of Swing": "Slap",
-      "Contact": {
-        "Type of Contact":"Nice - Left",
-        "Charge Power Up": 0,
-        "Charge Power Down": 0,
-        "Star Swing Five-Star": 0,
-        "Input Direction - Push/Pull": "None",
-        "Input Direction - Stick": "",
-        "Frame of Swing Upon Contact": "4",
-        "Ball Power": "131",
-        "Vert Angle": "59",
-        "Horiz Angle": "762",
-        "Contact Absolute": 80.1543,
-        "Contact Quality": 0.749258,
-        "RNG1": "30,588",
-        "RNG2": "15,615",
-        "RNG3": "220",
-        "Ball Velocity - X": 0.255168,
-        "Ball Velocity - Y": 0.0591998,
-        "Ball Velocity - Z": 0.600341,
-        "Ball Contact Pos - X": -0.148843,
-        "Ball Contact Pos - Z": 0.4,
-        "Ball Landing Position - X": 10.3689,
-        "Ball Landing Position - Y": 0.188904,
-        "Ball Landing Position - Z": 23.9965,
-        "Ball Hang Time": 44,
-        "Ball Max Height": 1.59969,
-        "Contact Result - Primary": "Fair",
-        "Contact Result - Secondary": "Out-tag",
-        "First Fielder": {
-          "Fielder Roster Location": 7,
-          "Fielder Position": "2B",
-          "Fielder Character": "Waluigi",
-          "Fielder Action": "None",
-          "Fielder Jump": 0,
-          "Fielder Swap": 128,
-          "Fielder Manual Selected": "No Selected Char",
-          "Fielder Position - X": 14.3379,
-          "Fielder Position - Y": -0,
-          "Fielder Position - Z": 33.5769,
-          "Fielder Bobble": "None"
-        }
-      }
+      "Type of Swing": "None"
     }
   }
 }
