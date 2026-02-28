@@ -1,0 +1,981 @@
+{
+  "GameID": "505,987,224",
+  "TagSetID": "",
+  "StadiumID": "Mario Stadium",
+  "First Batting Team": 1,
+  "Star Skills On": 1,
+  "Mercy On": 1,
+  "Team 0 Logo": 7,
+  "Team 1 Logo": 2,
+  "Event Num": "12b",
+  "Away Player": "CPU",
+  "Home Player": "No Player Selected",
+  "Inning": 1,
+  "Innings Selected": 5,
+  "Half Inning": 1,
+  "Away Score": 3,
+  "Home Score": 0,
+  "Away Inning Scores": [3],
+  "Home Inning Scores": [0],
+  "Balls": 0,
+  "Strikes": 0,
+  "Outs": 0,
+  "Star Chance": 0,
+  "Away Stars": 3,
+  "Home Stars": 5,
+  "Pitcher Stamina": 10,
+  "Chemistry Links on Base": 0,
+  "Num Outs During Play": 0,
+  "Pitcher Roster Loc": 2,
+  "Batter Roster Loc": 0,
+  "Away Batter Roster Loc": 5,
+  "Home Batter Roster Loc": 0,
+  "Away Roster 0": {
+    "Team": "0",
+    "RosterID": 0,
+    "CharID": "Baby Luigi",
+    "Superstar": 0,
+    "Captain": 0,
+    "Fielding Hand": "Right",
+    "Batting Hand": "Left",
+    "Fielding Position": "CF",
+    "Defensive Stats": {
+      "Batters Faced": 0,
+      "Runs Allowed": 0,
+      "Earned Runs": 0,
+      "Batters Walked": 0,
+      "Batters Hit": 0,
+      "Hits Allowed": 0,
+      "HRs Allowed": 0,
+      "Pitches Thrown": 0,
+      "Stamina": 10,
+      "Was Pitcher": 0,
+      "Strikeouts": 0,
+      "Star Pitches Thrown": 0,
+      "Big Plays": 0,
+      "Outs Pitched": 0,
+      "Batters Per Position": [
+      ],
+      "Batter Outs Per Position": [
+      ],
+      "Outs Per Position": [
+      ]
+    },
+    "Offensive Stats": {
+      "At Bats": 1,
+      "Hits": 1,
+      "Singles": 0,
+      "Doubles": 1,
+      "Triples": 0,
+      "Homeruns": 0,
+      "Successful Bunts": 0,
+      "Sac Flys": 0,
+      "Strikeouts": 0,
+      "Walks (4 Balls)": 0,
+      "Walks (Hit)": 0,
+      "RBI": 0,
+      "Bases Stolen": 0,
+      "Star Hits": 0
+    }
+  },
+  "Away Roster 1": {
+    "Team": "0",
+    "RosterID": 1,
+    "CharID": "Dixie",
+    "Superstar": 0,
+    "Captain": 0,
+    "Fielding Hand": "Right",
+    "Batting Hand": "Left",
+    "Fielding Position": "2B",
+    "Defensive Stats": {
+      "Batters Faced": 0,
+      "Runs Allowed": 0,
+      "Earned Runs": 0,
+      "Batters Walked": 0,
+      "Batters Hit": 0,
+      "Hits Allowed": 0,
+      "HRs Allowed": 0,
+      "Pitches Thrown": 0,
+      "Stamina": 10,
+      "Was Pitcher": 0,
+      "Strikeouts": 0,
+      "Star Pitches Thrown": 0,
+      "Big Plays": 0,
+      "Outs Pitched": 0,
+      "Batters Per Position": [
+      ],
+      "Batter Outs Per Position": [
+      ],
+      "Outs Per Position": [
+      ]
+    },
+    "Offensive Stats": {
+      "At Bats": 1,
+      "Hits": 1,
+      "Singles": 1,
+      "Doubles": 0,
+      "Triples": 0,
+      "Homeruns": 0,
+      "Successful Bunts": 0,
+      "Sac Flys": 0,
+      "Strikeouts": 0,
+      "Walks (4 Balls)": 0,
+      "Walks (Hit)": 0,
+      "RBI": 0,
+      "Bases Stolen": 0,
+      "Star Hits": 0
+    }
+  },
+  "Away Roster 2": {
+    "Team": "0",
+    "RosterID": 2,
+    "CharID": "Luigi",
+    "Superstar": 0,
+    "Captain": 1,
+    "Fielding Hand": "Right",
+    "Batting Hand": "Left",
+    "Fielding Position": "P",
+    "Defensive Stats": {
+      "Batters Faced": 0,
+      "Runs Allowed": 0,
+      "Earned Runs": 0,
+      "Batters Walked": 0,
+      "Batters Hit": 0,
+      "Hits Allowed": 0,
+      "HRs Allowed": 0,
+      "Pitches Thrown": 1,
+      "Stamina": 10,
+      "Was Pitcher": 1,
+      "Strikeouts": 0,
+      "Star Pitches Thrown": 0,
+      "Big Plays": 0,
+      "Outs Pitched": 0,
+      "Batters Per Position": [
+      ],
+      "Batter Outs Per Position": [
+      ],
+      "Outs Per Position": [
+      ]
+    },
+    "Offensive Stats": {
+      "At Bats": 1,
+      "Hits": 0,
+      "Singles": 0,
+      "Doubles": 0,
+      "Triples": 0,
+      "Homeruns": 0,
+      "Successful Bunts": 0,
+      "Sac Flys": 0,
+      "Strikeouts": 1,
+      "Walks (4 Balls)": 0,
+      "Walks (Hit)": 0,
+      "RBI": 0,
+      "Bases Stolen": 0,
+      "Star Hits": 0
+    }
+  },
+  "Away Roster 3": {
+    "Team": "0",
+    "RosterID": 3,
+    "CharID": "Bowser Jr",
+    "Superstar": 0,
+    "Captain": 0,
+    "Fielding Hand": "Left",
+    "Batting Hand": "Right",
+    "Fielding Position": "C",
+    "Defensive Stats": {
+      "Batters Faced": 0,
+      "Runs Allowed": 0,
+      "Earned Runs": 0,
+      "Batters Walked": 0,
+      "Batters Hit": 0,
+      "Hits Allowed": 0,
+      "HRs Allowed": 0,
+      "Pitches Thrown": 0,
+      "Stamina": 10,
+      "Was Pitcher": 0,
+      "Strikeouts": 0,
+      "Star Pitches Thrown": 0,
+      "Big Plays": 0,
+      "Outs Pitched": 0,
+      "Batters Per Position": [
+      ],
+      "Batter Outs Per Position": [
+      ],
+      "Outs Per Position": [
+      ]
+    },
+    "Offensive Stats": {
+      "At Bats": 0,
+      "Hits": 0,
+      "Singles": 0,
+      "Doubles": 0,
+      "Triples": 0,
+      "Homeruns": 0,
+      "Successful Bunts": 0,
+      "Sac Flys": 1,
+      "Strikeouts": 0,
+      "Walks (4 Balls)": 0,
+      "Walks (Hit)": 0,
+      "RBI": 1,
+      "Bases Stolen": 0,
+      "Star Hits": 0
+    }
+  },
+  "Away Roster 4": {
+    "Team": "0",
+    "RosterID": 4,
+    "CharID": "Wario",
+    "Superstar": 0,
+    "Captain": 0,
+    "Fielding Hand": "Right",
+    "Batting Hand": "Right",
+    "Fielding Position": "1B",
+    "Defensive Stats": {
+      "Batters Faced": 0,
+      "Runs Allowed": 0,
+      "Earned Runs": 0,
+      "Batters Walked": 0,
+      "Batters Hit": 0,
+      "Hits Allowed": 0,
+      "HRs Allowed": 0,
+      "Pitches Thrown": 0,
+      "Stamina": 10,
+      "Was Pitcher": 0,
+      "Strikeouts": 0,
+      "Star Pitches Thrown": 0,
+      "Big Plays": 0,
+      "Outs Pitched": 0,
+      "Batters Per Position": [
+      ],
+      "Batter Outs Per Position": [
+      ],
+      "Outs Per Position": [
+      ]
+    },
+    "Offensive Stats": {
+      "At Bats": 1,
+      "Hits": 1,
+      "Singles": 0,
+      "Doubles": 0,
+      "Triples": 0,
+      "Homeruns": 1,
+      "Successful Bunts": 0,
+      "Sac Flys": 0,
+      "Strikeouts": 0,
+      "Walks (4 Balls)": 0,
+      "Walks (Hit)": 0,
+      "RBI": 2,
+      "Bases Stolen": 0,
+      "Star Hits": 0
+    }
+  },
+  "Away Roster 5": {
+    "Team": "0",
+    "RosterID": 5,
+    "CharID": "Shy Guy(R)",
+    "Superstar": 0,
+    "Captain": 0,
+    "Fielding Hand": "Left",
+    "Batting Hand": "Left",
+    "Fielding Position": "3B",
+    "Defensive Stats": {
+      "Batters Faced": 0,
+      "Runs Allowed": 0,
+      "Earned Runs": 0,
+      "Batters Walked": 0,
+      "Batters Hit": 0,
+      "Hits Allowed": 0,
+      "HRs Allowed": 0,
+      "Pitches Thrown": 0,
+      "Stamina": 10,
+      "Was Pitcher": 0,
+      "Strikeouts": 0,
+      "Star Pitches Thrown": 0,
+      "Big Plays": 0,
+      "Outs Pitched": 0,
+      "Batters Per Position": [
+      ],
+      "Batter Outs Per Position": [
+      ],
+      "Outs Per Position": [
+      ]
+    },
+    "Offensive Stats": {
+      "At Bats": 1,
+      "Hits": 0,
+      "Singles": 0,
+      "Doubles": 0,
+      "Triples": 0,
+      "Homeruns": 0,
+      "Successful Bunts": 0,
+      "Sac Flys": 0,
+      "Strikeouts": 1,
+      "Walks (4 Balls)": 0,
+      "Walks (Hit)": 0,
+      "RBI": 0,
+      "Bases Stolen": 0,
+      "Star Hits": 0
+    }
+  },
+  "Away Roster 6": {
+    "Team": "0",
+    "RosterID": 6,
+    "CharID": "Bro(H)",
+    "Superstar": 0,
+    "Captain": 0,
+    "Fielding Hand": "Right",
+    "Batting Hand": "Right",
+    "Fielding Position": "RF",
+    "Defensive Stats": {
+      "Batters Faced": 0,
+      "Runs Allowed": 0,
+      "Earned Runs": 0,
+      "Batters Walked": 0,
+      "Batters Hit": 0,
+      "Hits Allowed": 0,
+      "HRs Allowed": 0,
+      "Pitches Thrown": 0,
+      "Stamina": 10,
+      "Was Pitcher": 0,
+      "Strikeouts": 0,
+      "Star Pitches Thrown": 0,
+      "Big Plays": 0,
+      "Outs Pitched": 0,
+      "Batters Per Position": [
+      ],
+      "Batter Outs Per Position": [
+      ],
+      "Outs Per Position": [
+      ]
+    },
+    "Offensive Stats": {
+      "At Bats": 0,
+      "Hits": 0,
+      "Singles": 0,
+      "Doubles": 0,
+      "Triples": 0,
+      "Homeruns": 0,
+      "Successful Bunts": 0,
+      "Sac Flys": 0,
+      "Strikeouts": 0,
+      "Walks (4 Balls)": 0,
+      "Walks (Hit)": 0,
+      "RBI": 0,
+      "Bases Stolen": 0,
+      "Star Hits": 0
+    }
+  },
+  "Away Roster 7": {
+    "Team": "0",
+    "RosterID": 7,
+    "CharID": "Dry Bones(Gy)",
+    "Superstar": 0,
+    "Captain": 0,
+    "Fielding Hand": "Left",
+    "Batting Hand": "Left",
+    "Fielding Position": "SS",
+    "Defensive Stats": {
+      "Batters Faced": 0,
+      "Runs Allowed": 0,
+      "Earned Runs": 0,
+      "Batters Walked": 0,
+      "Batters Hit": 0,
+      "Hits Allowed": 0,
+      "HRs Allowed": 0,
+      "Pitches Thrown": 0,
+      "Stamina": 10,
+      "Was Pitcher": 0,
+      "Strikeouts": 0,
+      "Star Pitches Thrown": 0,
+      "Big Plays": 0,
+      "Outs Pitched": 0,
+      "Batters Per Position": [
+      ],
+      "Batter Outs Per Position": [
+      ],
+      "Outs Per Position": [
+      ]
+    },
+    "Offensive Stats": {
+      "At Bats": 0,
+      "Hits": 0,
+      "Singles": 0,
+      "Doubles": 0,
+      "Triples": 0,
+      "Homeruns": 0,
+      "Successful Bunts": 0,
+      "Sac Flys": 0,
+      "Strikeouts": 0,
+      "Walks (4 Balls)": 0,
+      "Walks (Hit)": 0,
+      "RBI": 0,
+      "Bases Stolen": 0,
+      "Star Hits": 0
+    }
+  },
+  "Away Roster 8": {
+    "Team": "0",
+    "RosterID": 8,
+    "CharID": "Paragoomba",
+    "Superstar": 0,
+    "Captain": 0,
+    "Fielding Hand": "Right",
+    "Batting Hand": "Right",
+    "Fielding Position": "LF",
+    "Defensive Stats": {
+      "Batters Faced": 0,
+      "Runs Allowed": 0,
+      "Earned Runs": 0,
+      "Batters Walked": 0,
+      "Batters Hit": 0,
+      "Hits Allowed": 0,
+      "HRs Allowed": 0,
+      "Pitches Thrown": 0,
+      "Stamina": 10,
+      "Was Pitcher": 0,
+      "Strikeouts": 0,
+      "Star Pitches Thrown": 0,
+      "Big Plays": 0,
+      "Outs Pitched": 0,
+      "Batters Per Position": [
+      ],
+      "Batter Outs Per Position": [
+      ],
+      "Outs Per Position": [
+      ]
+    },
+    "Offensive Stats": {
+      "At Bats": 0,
+      "Hits": 0,
+      "Singles": 0,
+      "Doubles": 0,
+      "Triples": 0,
+      "Homeruns": 0,
+      "Successful Bunts": 0,
+      "Sac Flys": 0,
+      "Strikeouts": 0,
+      "Walks (4 Balls)": 0,
+      "Walks (Hit)": 0,
+      "RBI": 0,
+      "Bases Stolen": 0,
+      "Star Hits": 0
+    }
+  },
+  "Home Roster 0": {
+    "Team": "1",
+    "RosterID": 0,
+    "CharID": "Baby Mario",
+    "Superstar": 0,
+    "Captain": 0,
+    "Fielding Hand": "Right",
+    "Batting Hand": "Right",
+    "Fielding Position": "CF",
+    "Defensive Stats": {
+      "Batters Faced": 0,
+      "Runs Allowed": 0,
+      "Earned Runs": 0,
+      "Batters Walked": 0,
+      "Batters Hit": 0,
+      "Hits Allowed": 0,
+      "HRs Allowed": 0,
+      "Pitches Thrown": 0,
+      "Stamina": 10,
+      "Was Pitcher": 0,
+      "Strikeouts": 0,
+      "Star Pitches Thrown": 0,
+      "Big Plays": 0,
+      "Outs Pitched": 0,
+      "Batters Per Position": [
+        {
+            "CF": 6
+        }
+      ],
+      "Batter Outs Per Position": [
+        {
+            "CF": 3
+        }
+      ],
+      "Outs Per Position": [
+      ]
+    },
+    "Offensive Stats": {
+      "At Bats": 0,
+      "Hits": 0,
+      "Singles": 0,
+      "Doubles": 0,
+      "Triples": 0,
+      "Homeruns": 0,
+      "Successful Bunts": 0,
+      "Sac Flys": 0,
+      "Strikeouts": 0,
+      "Walks (4 Balls)": 0,
+      "Walks (Hit)": 0,
+      "RBI": 0,
+      "Bases Stolen": 0,
+      "Star Hits": 0
+    }
+  },
+  "Home Roster 1": {
+    "Team": "1",
+    "RosterID": 1,
+    "CharID": "Paratroopa(R)",
+    "Superstar": 0,
+    "Captain": 0,
+    "Fielding Hand": "Right",
+    "Batting Hand": "Left",
+    "Fielding Position": "2B",
+    "Defensive Stats": {
+      "Batters Faced": 0,
+      "Runs Allowed": 0,
+      "Earned Runs": 0,
+      "Batters Walked": 0,
+      "Batters Hit": 0,
+      "Hits Allowed": 0,
+      "HRs Allowed": 0,
+      "Pitches Thrown": 0,
+      "Stamina": 10,
+      "Was Pitcher": 0,
+      "Strikeouts": 0,
+      "Star Pitches Thrown": 0,
+      "Big Plays": 0,
+      "Outs Pitched": 0,
+      "Batters Per Position": [
+        {
+            "2B": 6
+        }
+      ],
+      "Batter Outs Per Position": [
+        {
+            "2B": 3
+        }
+      ],
+      "Outs Per Position": [
+      ]
+    },
+    "Offensive Stats": {
+      "At Bats": 0,
+      "Hits": 0,
+      "Singles": 0,
+      "Doubles": 0,
+      "Triples": 0,
+      "Homeruns": 0,
+      "Successful Bunts": 0,
+      "Sac Flys": 0,
+      "Strikeouts": 0,
+      "Walks (4 Balls)": 0,
+      "Walks (Hit)": 0,
+      "RBI": 0,
+      "Bases Stolen": 0,
+      "Star Hits": 0
+    }
+  },
+  "Home Roster 2": {
+    "Team": "1",
+    "RosterID": 2,
+    "CharID": "Mario",
+    "Superstar": 0,
+    "Captain": 1,
+    "Fielding Hand": "Right",
+    "Batting Hand": "Right",
+    "Fielding Position": "P",
+    "Defensive Stats": {
+      "Batters Faced": 6,
+      "Runs Allowed": 3,
+      "Earned Runs": 3,
+      "Batters Walked": 0,
+      "Batters Hit": 0,
+      "Hits Allowed": 3,
+      "HRs Allowed": 1,
+      "Pitches Thrown": 12,
+      "Stamina": 7,
+      "Was Pitcher": 1,
+      "Strikeouts": 2,
+      "Star Pitches Thrown": 0,
+      "Big Plays": 0,
+      "Outs Pitched": 3,
+      "Batters Per Position": [
+        {
+            "P": 6
+        }
+      ],
+      "Batter Outs Per Position": [
+        {
+            "P": 3
+        }
+      ],
+      "Outs Per Position": [
+      ]
+    },
+    "Offensive Stats": {
+      "At Bats": 0,
+      "Hits": 0,
+      "Singles": 0,
+      "Doubles": 0,
+      "Triples": 0,
+      "Homeruns": 0,
+      "Successful Bunts": 0,
+      "Sac Flys": 0,
+      "Strikeouts": 0,
+      "Walks (4 Balls)": 0,
+      "Walks (Hit)": 0,
+      "RBI": 0,
+      "Bases Stolen": 0,
+      "Star Hits": 0
+    }
+  },
+  "Home Roster 3": {
+    "Team": "1",
+    "RosterID": 3,
+    "CharID": "Pianta(B)",
+    "Superstar": 0,
+    "Captain": 0,
+    "Fielding Hand": "Right",
+    "Batting Hand": "Right",
+    "Fielding Position": "C",
+    "Defensive Stats": {
+      "Batters Faced": 0,
+      "Runs Allowed": 0,
+      "Earned Runs": 0,
+      "Batters Walked": 0,
+      "Batters Hit": 0,
+      "Hits Allowed": 0,
+      "HRs Allowed": 0,
+      "Pitches Thrown": 0,
+      "Stamina": 10,
+      "Was Pitcher": 0,
+      "Strikeouts": 0,
+      "Star Pitches Thrown": 0,
+      "Big Plays": 0,
+      "Outs Pitched": 0,
+      "Batters Per Position": [
+        {
+            "C": 6
+        }
+      ],
+      "Batter Outs Per Position": [
+        {
+            "C": 3
+        }
+      ],
+      "Outs Per Position": [
+      ]
+    },
+    "Offensive Stats": {
+      "At Bats": 0,
+      "Hits": 0,
+      "Singles": 0,
+      "Doubles": 0,
+      "Triples": 0,
+      "Homeruns": 0,
+      "Successful Bunts": 0,
+      "Sac Flys": 0,
+      "Strikeouts": 0,
+      "Walks (4 Balls)": 0,
+      "Walks (Hit)": 0,
+      "RBI": 0,
+      "Bases Stolen": 0,
+      "Star Hits": 0
+    }
+  },
+  "Home Roster 4": {
+    "Team": "1",
+    "RosterID": 4,
+    "CharID": "Toad(R)",
+    "Superstar": 0,
+    "Captain": 0,
+    "Fielding Hand": "Right",
+    "Batting Hand": "Right",
+    "Fielding Position": "1B",
+    "Defensive Stats": {
+      "Batters Faced": 0,
+      "Runs Allowed": 0,
+      "Earned Runs": 0,
+      "Batters Walked": 0,
+      "Batters Hit": 0,
+      "Hits Allowed": 0,
+      "HRs Allowed": 0,
+      "Pitches Thrown": 0,
+      "Stamina": 10,
+      "Was Pitcher": 0,
+      "Strikeouts": 0,
+      "Star Pitches Thrown": 0,
+      "Big Plays": 0,
+      "Outs Pitched": 0,
+      "Batters Per Position": [
+        {
+            "1B": 6
+        }
+      ],
+      "Batter Outs Per Position": [
+        {
+            "1B": 3
+        }
+      ],
+      "Outs Per Position": [
+      ]
+    },
+    "Offensive Stats": {
+      "At Bats": 0,
+      "Hits": 0,
+      "Singles": 0,
+      "Doubles": 0,
+      "Triples": 0,
+      "Homeruns": 0,
+      "Successful Bunts": 0,
+      "Sac Flys": 0,
+      "Strikeouts": 0,
+      "Walks (4 Balls)": 0,
+      "Walks (Hit)": 0,
+      "RBI": 0,
+      "Bases Stolen": 0,
+      "Star Hits": 0
+    }
+  },
+  "Home Roster 5": {
+    "Team": "1",
+    "RosterID": 5,
+    "CharID": "Birdo",
+    "Superstar": 0,
+    "Captain": 0,
+    "Fielding Hand": "Right",
+    "Batting Hand": "Right",
+    "Fielding Position": "3B",
+    "Defensive Stats": {
+      "Batters Faced": 0,
+      "Runs Allowed": 0,
+      "Earned Runs": 0,
+      "Batters Walked": 0,
+      "Batters Hit": 0,
+      "Hits Allowed": 0,
+      "HRs Allowed": 0,
+      "Pitches Thrown": 0,
+      "Stamina": 10,
+      "Was Pitcher": 0,
+      "Strikeouts": 0,
+      "Star Pitches Thrown": 0,
+      "Big Plays": 0,
+      "Outs Pitched": 0,
+      "Batters Per Position": [
+        {
+            "3B": 6
+        }
+      ],
+      "Batter Outs Per Position": [
+        {
+            "3B": 3
+        }
+      ],
+      "Outs Per Position": [
+      ]
+    },
+    "Offensive Stats": {
+      "At Bats": 0,
+      "Hits": 0,
+      "Singles": 0,
+      "Doubles": 0,
+      "Triples": 0,
+      "Homeruns": 0,
+      "Successful Bunts": 0,
+      "Sac Flys": 0,
+      "Strikeouts": 0,
+      "Walks (4 Balls)": 0,
+      "Walks (Hit)": 0,
+      "RBI": 0,
+      "Bases Stolen": 0,
+      "Star Hits": 0
+    }
+  },
+  "Home Roster 6": {
+    "Team": "1",
+    "RosterID": 6,
+    "CharID": "Toadette",
+    "Superstar": 0,
+    "Captain": 0,
+    "Fielding Hand": "Right",
+    "Batting Hand": "Right",
+    "Fielding Position": "LF",
+    "Defensive Stats": {
+      "Batters Faced": 0,
+      "Runs Allowed": 0,
+      "Earned Runs": 0,
+      "Batters Walked": 0,
+      "Batters Hit": 0,
+      "Hits Allowed": 0,
+      "HRs Allowed": 0,
+      "Pitches Thrown": 0,
+      "Stamina": 10,
+      "Was Pitcher": 0,
+      "Strikeouts": 0,
+      "Star Pitches Thrown": 0,
+      "Big Plays": 0,
+      "Outs Pitched": 0,
+      "Batters Per Position": [
+        {
+            "LF": 6
+        }
+      ],
+      "Batter Outs Per Position": [
+        {
+            "LF": 3
+        }
+      ],
+      "Outs Per Position": [
+        {
+            "LF": 1
+        }
+      ]
+    },
+    "Offensive Stats": {
+      "At Bats": 0,
+      "Hits": 0,
+      "Singles": 0,
+      "Doubles": 0,
+      "Triples": 0,
+      "Homeruns": 0,
+      "Successful Bunts": 0,
+      "Sac Flys": 0,
+      "Strikeouts": 0,
+      "Walks (4 Balls)": 0,
+      "Walks (Hit)": 0,
+      "RBI": 0,
+      "Bases Stolen": 0,
+      "Star Hits": 0
+    }
+  },
+  "Home Roster 7": {
+    "Team": "1",
+    "RosterID": 7,
+    "CharID": "Boo",
+    "Superstar": 0,
+    "Captain": 0,
+    "Fielding Hand": "Left",
+    "Batting Hand": "Left",
+    "Fielding Position": "RF",
+    "Defensive Stats": {
+      "Batters Faced": 0,
+      "Runs Allowed": 0,
+      "Earned Runs": 0,
+      "Batters Walked": 0,
+      "Batters Hit": 0,
+      "Hits Allowed": 0,
+      "HRs Allowed": 0,
+      "Pitches Thrown": 0,
+      "Stamina": 10,
+      "Was Pitcher": 0,
+      "Strikeouts": 0,
+      "Star Pitches Thrown": 0,
+      "Big Plays": 0,
+      "Outs Pitched": 0,
+      "Batters Per Position": [
+        {
+            "RF": 6
+        }
+      ],
+      "Batter Outs Per Position": [
+        {
+            "RF": 3
+        }
+      ],
+      "Outs Per Position": [
+      ]
+    },
+    "Offensive Stats": {
+      "At Bats": 0,
+      "Hits": 0,
+      "Singles": 0,
+      "Doubles": 0,
+      "Triples": 0,
+      "Homeruns": 0,
+      "Successful Bunts": 0,
+      "Sac Flys": 0,
+      "Strikeouts": 0,
+      "Walks (4 Balls)": 0,
+      "Walks (Hit)": 0,
+      "RBI": 0,
+      "Bases Stolen": 0,
+      "Star Hits": 0
+    }
+  },
+  "Home Roster 8": {
+    "Team": "1",
+    "RosterID": 8,
+    "CharID": "Koopa(G)",
+    "Superstar": 0,
+    "Captain": 0,
+    "Fielding Hand": "Right",
+    "Batting Hand": "Left",
+    "Fielding Position": "SS",
+    "Defensive Stats": {
+      "Batters Faced": 0,
+      "Runs Allowed": 0,
+      "Earned Runs": 0,
+      "Batters Walked": 0,
+      "Batters Hit": 0,
+      "Hits Allowed": 0,
+      "HRs Allowed": 0,
+      "Pitches Thrown": 0,
+      "Stamina": 10,
+      "Was Pitcher": 0,
+      "Strikeouts": 0,
+      "Star Pitches Thrown": 0,
+      "Big Plays": 0,
+      "Outs Pitched": 0,
+      "Batters Per Position": [
+        {
+            "SS": 6
+        }
+      ],
+      "Batter Outs Per Position": [
+        {
+            "SS": 3
+        }
+      ],
+      "Outs Per Position": [
+      ]
+    },
+    "Offensive Stats": {
+      "At Bats": 0,
+      "Hits": 0,
+      "Singles": 0,
+      "Doubles": 0,
+      "Triples": 0,
+      "Homeruns": 0,
+      "Successful Bunts": 0,
+      "Sac Flys": 0,
+      "Strikeouts": 0,
+      "Walks (4 Balls)": 0,
+      "Walks (Hit)": 0,
+      "RBI": 0,
+      "Bases Stolen": 0,
+      "Star Hits": 0
+    }
+  },
+  "Runner Batter": {
+    "Runner Roster Loc": 0,
+    "Runner Char Id": "Baby Mario",
+    "Runner Initial Base": 0,
+    "Out Type": "None",
+    "Out Location": 0,
+    "Steal": "None",
+    "Runner Result Base": 0
+  },
+  "Previous Event": {
+    "RBI": 0,
+    "Result of AB": "None",
+    "Pitch": {
+      "Pitcher Team Id": 0,
+      "Pitcher Char Id": "Luigi",
+      "Pitch Type": "Curve",
+      "Charge Type": "N/A",
+      "Star Pitch": 0,
+      "Pitch Speed": 125,
+      "Ball Position - Strikezone": 0.142621,
+      "In Strikezone": 1,
+        "Bat Contact Pos - X": 0,
+        "Bat Contact Pos - Z": 0.4,
+      "DB": 0,
+      "Type of Swing": "None"
+    }
+  }
+}
