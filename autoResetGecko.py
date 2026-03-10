@@ -12,76 +12,51 @@
 #Press A through the stadium and game option select screens. Again, ignore the graphics.
 #The game should start up with the exact situation prior to the crash. 
 
-#in future versions, the goal is the make the batting order more automated, and fix the graphics.
+#in future versions, the goal is the make the batting order more automated, and fix the graphics. 
+# List of future improvements:
+# - set batting order automatically
+# - set handedness
+# - set superstar
+# - set total hits, so they appear correct between innings
+# - set stats so the book appears correct.
 
 import json
-from resources import charID_to_charName, charName_to_charID, captain_ids, character_type, stadium_map, innings_selected_map, position_map
-from pyrio.stat_file_parser import HudObj 
+from pyrio.stat_file_parser import HudObj, RunnerObj
+from pyrio.lookup import Lookup, LookupDicts
+
+lookup = Lookup()
 
 hud = HudObj(json.load(open('decoded.hud.json')))
-hudJSON = json.load(open('decoded.hud.json'))
 
 #set which player is away. 0 for P1, 1 for P2.
-awayPlayer = 0 
+#TODO: test both options work
+awayPlayer = 1 
 
-#rosters ordered by position TODO: update to pyrio code once the positions are officially in the prod hud file.
+#rosters ordered by position 
 position_rosters = []
-for teamIndex, teamName in enumerate(["Away", "Home"]):
+
+for teamIndex in range(2):
       team_position_roster = []
-      for position, character in hudJSON[f"Positions {teamName}"].items():
-            team_position_roster.append(charName_to_charID[character])
+      team_roster = hud.roster(teamIndex, output_format="ID")
+      for positionIndex in range(9):
+            placeInOrder = hud.roster_ID_at_position(teamIndex, positionIndex)
+            team_position_roster.append(team_roster.get(placeInOrder).get('char_id'))
       position_rosters.append(team_position_roster)
 
-#determine batting order for team currently up to bat
-i = 0
-team_batting_battingOrder = []
-while i < 9:
-      team_batting_battingOrder.append(
-            charName_to_charID[
-                  hud.roster(hud.batting_team())[(hud.batter_roster_location() + i) % 9]['char_id']
-            ])
-      i += 1
-
-#determine batting order for team currently fielding
-#currently derives this using PAs, but requested to be added to hud one day.
-teamName = "Home" if (hud.fielding_team == 1) else "Away"
-i = 0
-max_pa = 0
-max_pa_rosterLoc = 0
-while i < 9:
-      oStats = hud.character_offensive_stats(hud.fielding_team(), i)
-      
-      current_pa = oStats["At Bats"] + oStats["Walks (4 Balls)"] + oStats["Walks (Hit)"]
-      
-      if current_pa >= max_pa:
-            max_pa = current_pa
-            max_pa_rosterLoc = i
-      
-      i += 1
-
-i = 0
-team_fielding_battingOrder = []
-while i < 9:
-      # + 1 since we want batter after one with most PAs
-      #Exception if fielding team hasn't batted yet, so all PAs are 0.
-      if max_pa != 0:
-            team_fielding_battingOrder.append(charName_to_charID[hud.roster(hud.fielding_team())[(max_pa_rosterLoc + 1 + i) % 9]['char_id']])
-      else:
-            
-            team_fielding_battingOrder.append(charName_to_charID[hud.roster(hud.fielding_team())[i]['char_id']])
-      i += 1
+#determine batting orders
+team_batting_battingOrder = hud.due_up(hud.batting_team(), output_format="ID")
+team_fielding_battingOrder = hud.due_up(hud.fielding_team(), output_format="ID")
      
 #put final gecko code together
 geckoCode = ""
 
 #add if statement if on main menu (rel = 4)
-geckoCode += "280e877c 00000004\n" 
+geckoCode += "280e877c 00000004" 
 
 #GAME SETTINGS
 
 #Set stadium - works by adjusting the cursor starting position
-#TODO update to pyrio code once stadium is officially in prod hud file. 
-geckoCode += "00750c37 " + "0000000" + hex(stadium_map[hudJSON["StadiumID"]])[2:]
+geckoCode += "\n00750c37 " + "0000000" + hex(lookup.lookup(LookupDicts.STADIUM, hud.stadium()))[2:]
 geckoCode += "\n02650586 00000000" #prevent right cursor movement
 geckoCode += "\n02650536 00000000" #prevent left cursor movement
 
@@ -91,15 +66,17 @@ if awayPlayer == 0:
 else:      
       geckoCode += "\n003c5f40 0000000" + hex(1 - hud.half_inning())[2:]
 
-#TODO: star skill setting. Until in HUD file, assumed on.
+#star skill setting. 
+geckoCode += "\n003c5f41 0000000" + str(hud.star_skills_setting())
 
 #innings selected
-#TODO update to pyrio code once innings selected is officially in prod hud file. 
-geckoCode = geckoCode + "\n003c5f42 0000000" + hex(innings_selected_map[hudJSON["Innings Selected"]])[2:]
+#this address sets the menu option, so we need to translate the innings selected to the menu index
+#doing the opposite of what the game actually does with bit shifting
+inningsSelectedMenuIndex = (hud.inningsSelected() - 1) >> 1
+geckoCode +="\n003c5f42 0000000" + str(inningsSelectedMenuIndex)
 
 #mercy
-#TODO: remove hardcoding. Until in HUD file, assumed to be on.
-geckoCode = geckoCode + "\n003c5f43 00000001"
+geckoCode += "\n003c5f43 0000000" + str(hud.mercy_setting())
 
 #prevent moving the cursor on this screen
 geckoCode += "\n02049616 00000000"
@@ -108,13 +85,13 @@ geckoCode += "\n020495da 00000000"
 #ROSTERS
 
 #Sets the character selected indicators on character select screen
-geckoCode = geckoCode + "\n003C676E 00110001"
+geckoCode += "\n003C676E 00110001"
 
 #make OK buttons active on character select screen
-geckoCode = geckoCode + "\n00750C7F 00010001"
+geckoCode += "\n00750C7F 00010001"
 
 #put cursors on OK buttons
-geckoCode = geckoCode + "\n04750c48 00000009\n04750c4C 00000009"
+geckoCode += "\n04750c48 00000009\n04750c4C 00000009"
 
 #prevent moving the cursor on character select screen
 geckoCode += "\n0464df60 60000000"
@@ -130,15 +107,12 @@ for teamNum in range(2):
 
             geckoCode += "\n00" + hex(aRosterIDs + teamNum * 9 + charNum)[4:] + " " + nZeros * "0" + hex(characterID)[2:]
 
-#TODO: set superstars in batting order. Unfortunately, starring runs a function that adjusts the stats, so it's not as simple as toggling a memory address.
-
-#TODO: set handedness. Current issue is that it sets it for a specific spot in the batting order, so it can cause issues if the batting order is changed.
-#until batting order is solved, leaving out.
 
 #set team captain
+#TODO: test new output format code
 captainCharIDs = [
-      charName_to_charID[hud.roster(0)[hud.captain_index(0)]['char_id']],
-      charName_to_charID[hud.roster(1)[hud.captain_index(1)]['char_id']]
+      hud.captain(0, "ID"),
+      hud.captain(1, "ID")
 ]
 
 p1CaptainZeros = 7 if captainCharIDs[awayPlayer] < 16 else 6
@@ -147,13 +121,16 @@ p2CaptainZeros = 7 if captainCharIDs[1 - awayPlayer] < 16 else 6
 geckoCode += "\n04353080 " + p1CaptainZeros * "0" + hex(captainCharIDs[awayPlayer])[2:]
 geckoCode += "\n04353084 " + p2CaptainZeros * "0" + hex(captainCharIDs[1 - awayPlayer])[2:]
 
-#team logo - TODO currently set as a default based on the captain, but should improve to be based on composition of the team.
-#hopefully, this is eventually in the hud file directly, which would make this viable for league play.
-p1LogoZeros = 7 if captain_ids.index(captainCharIDs[awayPlayer])*4 < 16 else 6
-p2LogoZeros = 7 if captain_ids.index(captainCharIDs[1 - awayPlayer])*4 < 16 else 6
+#team logo 
+#TODO: test new code
+p1Logo = lookup.lookup(LookupDicts.TEAM_NAME, hud.logo(awayPlayer))
+p2Logo = lookup.lookup(LookupDicts.TEAM_NAME, hud.logo(1 - awayPlayer))
 
-geckoCode += "\n003530AD " + p1LogoZeros * "0" + hex(captain_ids.index(captainCharIDs[awayPlayer])*4)[2:]
-geckoCode += "\n003530AE " + p2LogoZeros * "0" + hex(captain_ids.index(captainCharIDs[1 - awayPlayer])*4)[2:]
+p1LogoZeros = 7 if p1Logo < 16 else 6
+p2LogoZeros = 7 if p2Logo < 16 else 6
+
+geckoCode += "\n003530AD " + p1LogoZeros * "0" + hex(p1Logo)[2:]
+geckoCode += "\n003530AE " + p2LogoZeros * "0" + hex(p2Logo)[2:]
 
 
 
@@ -163,7 +140,7 @@ geckoCode += "\n003530AE " + p2LogoZeros * "0" + hex(captain_ids.index(captainCh
 geckoCode += "\n280e877d 00000005"
 
 # If statement is used to make this code run until the "game started indicator" is true.
-# its a 16 but write since I can't find the code for an 8 bit write, but the address before it is 0 at the start of the game
+# its a 16 bit write since I can't find the code for an 8 bit write, but the address before it is 0 at the start of the game
 geckoCode += "\n28892ab4 00000000" #start if statement
 
 #inning
@@ -175,19 +152,26 @@ geckoCode += "\n04892998 0000000" + str(hud.batting_team()) #team batting
 geckoCode += "\n0489299C 0000000" + str(hud.fielding_team()) #team fielding
 
 #scores - need to fill the current score and the 1st inning score memory locations, otherwise scoring a run will cause the score to be wrong.
-#TODO: later version. Set prior innings scores properly when the info is available in the hud files.
-awayScore = hud.score(0)
-homeScore = hud.score(1)
+#TODO: test new pyrio code and all the inning scores are working
 
-homeScoreZeros = 7 if homeScore < 16 else 6
-awayScoreZeros = 7 if awayScore < 16 else 6
+aScores = 0x808928a4
+gapInning = 0x2
+gapTeam = gapInning * 19
 
-geckoCode += "\n028928A4 " + awayScoreZeros * "0" + hex(awayScore)[2:] #current scores
-geckoCode += "\n028928CA " + homeScoreZeros * "0" + hex(homeScore)[2:]
+for team in range(2):
+      inningScores = hud.inning_scores(((team + awayPlayer) % 2))
 
-geckoCode += "\n028928A6 " + awayScoreZeros * "0" + hex(awayScore)[2:] #inning 1 scores
-geckoCode += "\n028928CC " + homeScoreZeros * "0" + hex(homeScore)[2:]
+      for i in range(1 + hud.inning()):
+            #first index is for the current score, rest are the per-inning scores
 
+            if i == 0: #current score
+                  score = hud.score(0)
+            else: #inning scores
+                  score = inningScores[i - 1]
+            
+            zeros = 7 if score < 16 else 6
+
+            geckoCode += "\n02" + hex(aScores + gapTeam * team + gapInning * i)[4:] + " " + zeros * "0" + hex(score)[2:]
 
 #count
 geckoCode += "\n04892968 0000000" + str(hud.strikes())
@@ -208,54 +192,37 @@ aStamina = 0x803535d8
 gapPlayer = 0x803535f6 - 0x803535d8
 gapTeam = gapPlayer * 9
 for team in range(2):
-      if team == hud.batting_team():
-            startingBattingPosition = hud.batter_roster_location()
-      else:
-            startingBattingPosition = (max_pa_rosterLoc + 1) % 9
+      startingBattingPosition = hud.batter_roster_location(((team + awayPlayer) % 2))
 
       for battingPos in range(9):
-            stamina = hud.character_defensive_stats(team, (startingBattingPosition + battingPos) % 9)['Stamina']
+            stamina = hud.character_defensive_stats(((team + awayPlayer) % 2), (startingBattingPosition + battingPos) % 9)['Stamina']
             geckoCode += "\n02" + hex(aStamina + team * gapTeam + battingPos * gapPlayer)[4:] + " 0000000" + hex(stamina)[2:]
             
-#Character positions - done by setting the roster in the order of the positions, so no extra code needed.
+#Character positions - 
+#Characters are loaded in roster by positions, so only need to set struct that holds batting order and position
+#Assumes players set the batting order correctly.
+#TODO: test new pyrio version
 aBattingPositionStruct = 0x808929c8
 gapCharacter = 0x8
 gapTeam = gapCharacter * 10
-teamNames = ["Away", "Home"] 
 
-for teamNum, teamName in enumerate(teamNames):
+for teamNum in range(2):
+      for index in range(10):
+      #in this struct, first index is the pitcher, and 1-9 are batting order
 
-      battingOrder = team_batting_battingOrder if teamNum == hud.half_inning() else team_fielding_battingOrder
-
-      for positionNum in range(10):
-
-            if positionNum == 0: #first slot is the pitcher
-                  pitcherName = hudJSON[f"Positions {teamName}"]["P"]
-                  pitcherRosterSpot = -1
-                  for position, characterID in enumerate(battingOrder):
-                        characterName = charID_to_charName[characterID]
-                        if characterName == pitcherName:
-                              pitcherRosterSpot = position
-                              break
-
-                  geckoCode += "\n04" + hex(aBattingPositionStruct + teamNum * gapTeam)[4:] + " 0000000" + str(pitcherRosterSpot)
+            if index == 0: #first slot is the pitcher
+                  geckoCode += "\n04" + hex(aBattingPositionStruct + teamNum * gapTeam)[4:] + " 0000000" + str(hud.roster_ID_at_position(((teamNum + awayPlayer) % 2), "P"))
                   geckoCode += "\n04" + hex(aBattingPositionStruct + teamNum * gapTeam + 0x4)[4:] + " 00000000"
 
             else:
-                  characterName = charID_to_charName[battingOrder[positionNum - 1]]
-                  characterPosition = None
-                  for position, character in hudJSON[f"Positions {teamName}"].items():
-                        if character == characterName:
-                              characterPosition = position_map[position]
-                              break                  
-                  
-                  #geckoCode += "\n04" + hex(aBattingPositionStruct + teamNum * gapTeam + positionNum * gapCharacter)[4:] + " 0000000" + str(positionNum - 1) not needed since always the same order.
-                  geckoCode += "\n04" + hex(aBattingPositionStruct + teamNum * gapTeam + positionNum * gapCharacter + 0x4)[4:] + " 0000000" + str(characterPosition)
+                  geckoCode += "\n04" + hex(aBattingPositionStruct + teamNum * gapTeam + index * gapCharacter + 0x4)[4:] + " 0000000" + (
+                        str(lookup.lookup(LookupDicts.POSITION, hud.position(((teamNum + awayPlayer) % 2), index - 1))))
 
 
 
 #runners
 #adds some nop instructions for the function calls that remove baserunners.
+#TODO: test new pyrio code, especually with the newRosterSpot
 aNopLocation = 0x806c93f0
 nopLocGap = 0x30 
 aRosterID0 = 0x8088eef8
@@ -263,26 +230,14 @@ rosterIDGap = 0x154
 
 for runnerNum in [1, 2, 3]:
       if hud.runner_on_base(runnerNum):
-            runnerCharID = charName_to_charID[hud.runner(runnerNum).get("Runner Char Id", -1)]
-            runnerRosterSpot = team_batting_battingOrder.index(runnerCharID)
-            zerosCharID = 7 if runnerCharID < 16 else 6
+            runner = RunnerObj(hud.runner(runnerNum))
 
-            geckoCode += "\n02" + hex(aRosterID0 + rosterIDGap * runnerNum)[4:] + " 0000000" + str(runnerRosterSpot)
-            geckoCode += "\n02" + hex(aRosterID0 + rosterIDGap * runnerNum + 2)[4:] + " " + zerosCharID * "0" + hex(runnerCharID)[2:]
+            newRosterSpot = (runner.roster_location() - hud.batter_roster_location()) % 9
+            zerosCharID = 7 if runner.character("ID") < 16 else 6
+
+            geckoCode += "\n02" + hex(aRosterID0 + rosterIDGap * runnerNum)[4:] + " 0000000" + str(newRosterSpot)
+            geckoCode += "\n02" + hex(aRosterID0 + rosterIDGap * runnerNum + 2)[4:] + " " + zerosCharID * "0" + runner.character("IDHex")[2:]
             geckoCode += "\n04" + hex(aNopLocation + nopLocGap * runnerNum)[4:] + " 60000000"
-
-#below code takes into account what happened on the pitch due to weirdness in the hud. Going to revert back to the previous pitch, so no need for this logic.
-# for runnerNum in range(4):
-#       if hud.runner_on_base(runnerNum):
-#             resultBase = hud.runner(runnerNum).get("Runner Result Base", -1)
-#             if resultBase in [1, 2, 3]:
-#                   runnerCharID = charName_to_charID[hud.runner(runnerNum).get("Runner Char Id", -1)]
-#                   runnerRosterSpot = team_batting_battingOrder.index(runnerCharID)
-#                   zerosCharID = 7 if runnerCharID < 16 else 6
-
-#                   geckoCode += "\n02" + hex(aRosterID0 + rosterIDGap * resultBase)[4:] + " 0000000" + str(runnerRosterSpot)
-#                   geckoCode += "\n02" + hex(aRosterID0 + rosterIDGap * resultBase + 2)[4:] + " " + zerosCharID * "0" + hex(runnerCharID)[2:]
-#                   geckoCode += "\n04" + hex(aNopLocation + nopLocGap * resultBase)[4:] + " 60000000"
 
 #end if statement, check if the converse is true for any post-processing code
 geckoCode += "\n2A892ab5 00000000" #end first if statement, check if the converse is true (<> 0)
@@ -290,18 +245,24 @@ geckoCode += "\n2A892ab5 00000000" #end first if statement, check if the convers
 #restore nop'd runner instructions to prevent overwriting the runners after the start of the game.
 geckoCode += "\n04" + hex(aNopLocation + nopLocGap * 1)[4:] + " B0650234"
 geckoCode += "\n04" + hex(aNopLocation + nopLocGap * 2)[4:] + " B06500E0"
-geckoCode += "\n04" + hex(aNopLocation + nopLocGap * 3)[4:] + " B06500E0"
-
-#TODO: very longterm adjust the player's stats so that the hud file is more accurate.     
+geckoCode += "\n04" + hex(aNopLocation + nopLocGap * 3)[4:] + " B06500E0"   
 
 print(geckoCode)
+for i in range(2):
+      print(f"P{i+1} batting order")
 
-if (awayPlayer == 0 and hud.half_inning() == 0) or (awayPlayer == 1 and hud.half_inning() == 1):
-      print("P1 batting order: ", [charID_to_charName[x] for x in team_batting_battingOrder])
-      print("P2 batting order: ", [charID_to_charName[x] for x in team_fielding_battingOrder])
-else: 
-      print("P1 batting order: ", [charID_to_charName[x] for x in team_fielding_battingOrder])
-      print("P2 batting order: ", [charID_to_charName[x] for x in team_batting_battingOrder])
+      if (awayPlayer == 0 and hud.half_inning() == 0) or (awayPlayer == 1 and hud.half_inning() == 1): 
+            teamNum = i
+      else:
+        teamNum = 1 - i
 
-#TODO: prevent changing fielder locations pre-game.
-#TODO: prevent moving the cursor in character select screen, stadium select, and game settings.
+      roster = hud.roster(teamNum, output_format="name")
+
+      for playerNum in range(9):
+            rosterLocation = (playerNum + hud.batter_roster_location(teamNum)) % 9
+            print("   ", 
+                  hud.characterId(teamNum, rosterLocation), 
+                  hud.batting_hand(teamNum, rosterLocation)[:1], 
+                  hud.fielding_hand(teamNum, rosterLocation)[:1],
+                  "Superstar" if hud.isSuperstar(teamNum, rosterLocation) else "") #TODO test this
+      print("") #new line
